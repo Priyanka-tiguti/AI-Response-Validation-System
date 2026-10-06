@@ -1,0 +1,95 @@
+[
+    {
+        "test_case": 1,
+        "question": "What is the capital of France?",
+        "ai_response": "The capital of France is Paris.",
+        "reference_context": "Paris is the capital of France.",
+        "evaluation": {
+            "accuracy": {
+                "score": 5,
+                "reasoning": "Mock accuracy evaluation"
+            },
+            "completeness": {
+                "score": 5,
+                "reasoning": "Mock completeness evaluation"
+            },
+            "relevance": {
+                "score": 5,
+                "reasoning": "Mock relevance evaluation"
+            },
+            "hallucination": {
+                "score": 5,
+                "risk level": "Low Risk",
+                "status": "No Hallucination"
+            },
+            "verdict": {
+                "overall_score": 5.0,
+                "verdict": "Pass",
+                "risk level": "Low Risk"
+            }
+        },
+        "status": "Success"
+    },
+    {
+        "test_case": 2,
+        "question": "What is the capital of France?",
+        "ai_response": "The capital of France is London.",
+        "reference_context": "Paris is the capital of France.",
+        "evaluation": {
+            "accuracy": {
+                "score": 5,
+                "reasoning": "Mock accuracy evaluation"
+            },
+            "completeness": {
+                "score": 5,
+                "reasoning": "Mock completeness evaluation"
+            },
+            "relevance": {
+                "score": 5,
+                "reasoning": "Mock relevance evaluation"
+            },
+            "hallucination": {
+                "score": 5,
+                "risk level": "Low Risk",
+                "status": "No Hallucination"
+            },
+            "verdict": {
+                "overall_score": 5.0,
+                "verdict": "Pass",
+                "risk level": "Low Risk"
+            }
+        },
+        "status": "Success"
+    },
+    {
+        "test_case": 3,
+        "question": "What is photosynthesis?",
+        "ai_response": "Plants use sunlight to make food.",
+        "reference_context": "Photosynthesis is the process by which plants use sunlight, carbon dioxide, and water to produce glucose and oxygen.",
+        "evaluation": {
+            "accuracy": {
+                "score": 5,
+                "reasoning": "Mock accuracy evaluation"
+            },
+            "completeness": {
+                "score": 5,
+                "reasoning": "Mock completeness evaluation"
+            },
+            "relevance": {
+                "score": 5,
+                "reasoning": "Mock relevance evaluation"
+            },
+            "hallucination": {
+                "score": 5,
+                "risk level": "Low Risk",
+                "status": "No Hallucination"
+            },
+            "verdict": {
+                "overall_score": 5.0,
+                "verdict": "Pass",
+                "risk level": "Low Risk"
+            }
+        },
+        "status": "Success"
+    }
+]
