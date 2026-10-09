@@ -1,62 +1,65 @@
-# AI Response Validation System with Hallucination Detection Assistance
+# 🛡️ AI Response Validation System with Hallucination Detection Assistance
 
 ## Project Overview
 
-This project aims to develop an AI Response Validation System that evaluates AI-generated responses for relevance, accuracy, hallucination, and completeness.
+The AI Response Validation System is designed to automatically evaluate AI-generated responses for relevance, accuracy, completeness, and hallucination.
+
+The system uses multiple independent validation agents to analyze an AI response against a reference answer or retrieved evidence. The results are combined using a weighted scoring mechanism to generate an overall score, final verdict, and hallucination risk level.
+
+The system supports both single-response and batch evaluation, evaluation history, dashboard analytics, error handling, and downloadable PDF reports.
+
+---
 
 ## Objectives
 
-- Evaluate AI-generated responses.
+- Evaluate AI-generated responses automatically.
 - Detect hallucinated or unsupported information.
-- Compare responses with reference information.
-- Use RAG for retrieving relevant evidence.
-- Generate evaluation scores and a final verdict.
+- Compare AI responses with reference information or retrieved evidence.
+- Evaluate responses using multiple independent validation agents.
+- Generate individual agent scores and explanations.
+- Calculate a weighted overall evaluation score.
+- Generate Pass, Needs Improvement, or Fail verdicts.
+- Identify hallucination risk levels.
+- Support single and batch response evaluation.
+- Store evaluation results for future analysis.
+- Provide dashboard-based evaluation statistics.
+- Generate detailed PDF reports for batch evaluations.
+- Handle invalid inputs and API failures safely.
 
-## System Architecture
+---
 
-The proposed system includes:
+## Key Features
 
-- Evaluation Input / User Interface
-- Backend / API Layer
-- Evaluation Orchestrator
-- Reference Knowledge Base
-- RAG Retrieval
-- Relevance Judge Agent
-- Accuracy Judge Agent
-- Hallucination Detection Agent
-- Completeness Judge Agent
-- Verdict Agent
-- Evaluation Scoring
-- Evaluation Results
-- Dashboard
+### 1. Single Evaluation
 
-## Evaluation Dimensions
+Users can enter:
 
-- Relevance
-- Accuracy
-- Hallucination
-- Completeness
+- Question
+- AI-generated response
+- Optional reference answer/source
 
-## Datasets
+The system evaluates the response using the validation agents and generates:
 
-- TruthfulQA
-- SQuAD
+- Relevance score
+- Accuracy score
+- Completeness score
+- Hallucination score
+- Weighted overall score
+- Final verdict
+- Hallucination risk
+- Agent reasoning
+- Supporting evidence
 
-## Proposed Tech Stack
+---
 
-- Python
-- Streamlit
-- FastAPI
-- Gemini API
-- LangChain
-- Sentence Transformers
-- FAISS
-- RAGAS
-- TruLens
-- Hugging Face Datasets
-- SQLite
-- Git & GitHub
+### 2. Batch Evaluation
 
-## Project Status
+The system supports evaluation of multiple AI responses through a CSV file.
 
-Milestone 1 – Foundation & Architecture
+Each record can contain:
+
+```text
+Question
+AI Response
+Reference Answer
+Reference Document

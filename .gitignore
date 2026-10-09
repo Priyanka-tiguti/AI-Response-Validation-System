@@ -3,3 +3,9 @@ venv/
 __pycache__/
 *.pyc
 .streamlit/secrets.toml
+evaluation.db
+
+# Generated embeddings and vector indexes
+*.npy
+*.pkl
+*.faiss

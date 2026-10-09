@@ -1,4 +1,6 @@
 question,ai_response,reference_answer
-"What is the capital of France?","Paris is the capital of France.","Paris is the capital of France."
-"What is 2 + 2?","","2 + 2 equals 4."
-"What is the largest planet?","Jupiter is the largest planet.","Jupiter is the largest planet."
+"What is the capital of France?","The capital of France is Paris.","The capital of France is Paris.","General Knowledge"
+"Who developed the theory of relativity?","Albert Einstein developed the theory of relativity.","Albert Einstein developed the theory of relativity.","General Knowledge"
+"What is photosynthesis?","Photosynthesis is the process by which plants use sunlight, carbon dioxide, and water to produce food and oxygen.","Photosynthesis is the process by which green plants use sunlight, carbon dioxide, and water to produce food and release oxygen.","Biology"
+"What is the capital of Australia?","The capital of Australia is Sydney.","The capital of Australia is Canberra.","General Knowledge"
+"Who invented the telephone?","Thomas Edison invented the telephone.","Alexander Graham Bell is generally credited with inventing the telephone.","History"

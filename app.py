@@ -38,7 +38,7 @@ print("GENAI:", genai.__file__)
 
 st.set_page_config(
     page_title="AI Response Validation System",
-    page_icon="🛡️",
+    page_icon="🔍",
     layout="wide",
 )
 
@@ -1989,6 +1989,148 @@ st.markdown(
         color: #f8fafc;
     }
 
+    /* =========================================================
+       SINGLE EVALUATION UI
+       ========================================================= */
+
+    .ui-section-title { color:#F8FAFC; font-size:18px; font-weight:800; margin-top:24px; margin-bottom:6px; letter-spacing:-0.2px; }
+    .ui-section-subtitle { color:#94A3B8; font-size:13px; font-weight:500; margin-bottom:18px; line-height:1.5; }
+    .pipeline-title { margin-top:28px; }
+
+    .validation-pipeline { display:flex; align-items:center; width:100%; gap:7px; margin:12px 0 30px 0; }
+    .pipeline-item { flex:1; }
+    .pipeline-card { min-height:72px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 7px; border-radius:14px; background:linear-gradient(145deg,rgba(30,41,70,.92),rgba(15,23,42,.96)); border:1px solid rgba(99,102,241,.25); box-shadow:0 8px 25px rgba(0,0,0,.18); transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease; }
+    .pipeline-card:hover { transform:translateY(-4px); border-color:rgba(99,102,241,.75); box-shadow:0 10px 30px rgba(99,102,241,.18); }
+    .pipeline-icon { font-size:20px; margin-bottom:5px; }
+    .pipeline-label { color:#CBD5E1; font-size:11px; font-weight:700; text-align:center; white-space:nowrap; }
+    .pipeline-arrow { color:#6366F1; font-size:18px; font-weight:800; flex-shrink:0; }
+
+    .input-title { margin-top:10px; }
+    .reference-title { margin-top:25px; }
+    .field-heading { color:#CBD5E1; font-size:14px; font-weight:700; margin-bottom:8px; }
+    .optional-label { color:#64748B; font-size:11px; font-weight:500; margin-left:5px; }
+
+    .stTextArea textarea { background:linear-gradient(145deg,#111827,#0F172A) !important; color:#F8FAFC !important; border:1px solid #334155 !important; border-radius:14px !important; padding:15px !important; font-size:14px !important; line-height:1.55 !important; transition:border-color .2s ease,box-shadow .2s ease; }
+    .stTextArea textarea:focus { border-color:#6366F1 !important; box-shadow:0 0 0 2px rgba(99,102,241,.15) !important; }
+
+    div[data-baseweb="select"] > div { background:#111827 !important; border:1px solid #334155 !important; border-radius:12px !important; color:#F8FAFC !important; min-height:48px !important; transition:border-color .2s ease,box-shadow .2s ease; }
+    div[data-baseweb="select"] > div:hover { border-color:#6366F1 !important; }
+    div[data-baseweb="select"] span { color:#F8FAFC !important; }
+
+    [data-testid="stFileUploader"] { background:linear-gradient(145deg,#111827,#0F172A) !important; border:1px dashed #475569 !important; border-radius:14px !important; padding:8px !important; transition:border-color .2s ease,background .2s ease; }
+    [data-testid="stFileUploader"]:hover { border-color:#6366F1 !important; }
+    .upload-help { color:#64748B; font-size:11px; margin-top:-5px; margin-bottom:8px; }
+
+    .ready-status { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:24px; margin-bottom:10px; color:#94A3B8; font-size:13px; font-weight:600; }
+    .ready-dot { width:8px; height:8px; border-radius:50%; background:#22C55E; box-shadow:0 0 10px rgba(34,197,94,.7); animation:readyPulse 2s ease-in-out infinite; }
+    @keyframes readyPulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.55; transform:scale(.82); } }
+
+    .stButton > button[kind="primary"] { min-height:52px !important; font-size:15px !important; font-weight:800 !important; border-radius:14px !important; background:linear-gradient(90deg,#4F46E5,#2563EB,#0891B2) !important; box-shadow:0 8px 25px rgba(79,70,229,.22); transition:transform .2s ease,box-shadow .2s ease,filter .2s ease; }
+    .stButton > button[kind="primary"]:hover { transform:translateY(-2px); filter:brightness(1.08); box-shadow:0 12px 32px rgba(79,70,229,.35); }
+
+    /* =========================================================
+       BATCH EVALUATION UI
+       ========================================================= */
+
+    .batch-section-title {
+        color:#F8FAFC;
+        font-size:18px;
+        font-weight:800;
+        margin-top:24px;
+        margin-bottom:6px;
+    }
+
+    .batch-section-subtitle {
+        color:#94A3B8;
+        font-size:13px;
+        line-height:1.55;
+        margin-bottom:14px;
+    }
+
+    .batch-section-subtitle b {
+        color:#CBD5E1;
+    }
+
+    .batch-workflow {
+        display:flex;
+        align-items:center;
+        width:100%;
+        gap:8px;
+        margin:12px 0 24px 0;
+    }
+
+    .batch-workflow-item {
+        flex:1;
+    }
+
+    .batch-workflow-card {
+        min-height:66px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:10px 8px;
+        border-radius:14px;
+        background:linear-gradient(145deg,rgba(30,41,70,.92),rgba(15,23,42,.96));
+        border:1px solid rgba(99,102,241,.25);
+        box-shadow:0 8px 25px rgba(0,0,0,.18);
+        transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+    }
+
+    .batch-workflow-card:hover {
+        transform:translateY(-3px);
+        border-color:rgba(99,102,241,.70);
+        box-shadow:0 10px 28px rgba(99,102,241,.16);
+    }
+
+    .batch-workflow-icon {
+        font-size:19px;
+    }
+
+    .batch-workflow-label {
+        color:#CBD5E1;
+        font-size:12px;
+        font-weight:700;
+        text-align:center;
+    }
+
+    .batch-workflow-arrow {
+        color:#6366F1;
+        font-size:18px;
+        font-weight:800;
+        flex-shrink:0;
+    }
+
+    .batch-ready-status {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        margin:18px 0 8px 0;
+        color:#94A3B8;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .batch-summary-title {
+        color:#CBD5E1;
+        font-size:16px;
+        font-weight:800;
+        margin-top:22px;
+        margin-bottom:10px;
+    }
+
+    .batch-summary-title + div[data-testid="stHorizontalBlock"] {
+        margin-bottom:8px;
+    }
+
+    /* Make Streamlit file uploader match the dark theme */
+    [data-testid="stFileUploader"] section {
+        background:linear-gradient(145deg,#111827,#0F172A) !important;
+        border:1px dashed #475569 !important;
+        border-radius:14px !important;
+    }
+
     .main .block-container {
         padding-top: 2rem;
         padding-bottom: 4rem;
@@ -2207,78 +2349,765 @@ st.markdown(
         color:#f1f5f9 !important;
     }
 
+    
+    /* ========================================================
+       ANIMATED AI VALIDATION LOGO
+       ======================================================== */
+
+    .header-logo-container {
+        display:flex;
+        align-items:center;
+        gap:18px;
+        margin:8px 0 18px 0;
+    }
+
+    .animated-logo-wrapper {
+        width:82px;
+        height:82px;
+        min-width:82px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        position:relative;
+    }
+
+    .animated-ai-logo {
+        width:82px;
+        height:82px;
+        overflow:visible;
+        filter:
+            drop-shadow(0 0 6px rgba(56,189,248,.45))
+            drop-shadow(0 0 14px rgba(99,102,241,.25));
+        animation:logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+        0%,100% {
+            transform:translateY(0) scale(1);
+        }
+        50% {
+            transform:translateY(-3px) scale(1.025);
+        }
+    }
+
+    .logo-rotate {
+        animation:rotateLogoRing 12s linear infinite;
+        transform-box:fill-box;
+        transform-origin:center;
+    }
+
+    @keyframes rotateLogoRing {
+        from { transform:rotate(0deg); }
+        to { transform:rotate(360deg); }
+    }
+
+    .scan-line {
+        animation:scanAI 2.8s ease-in-out infinite;
+        transform-box:fill-box;
+        transform-origin:center;
+    }
+
+    @keyframes scanAI {
+        0% {
+            transform:translateY(-15px);
+            opacity:0;
+        }
+        15% { opacity:1; }
+        50% {
+            transform:translateY(30px);
+            opacity:1;
+        }
+        85% { opacity:1; }
+        100% {
+            transform:translateY(-15px);
+            opacity:0;
+        }
+    }
+
+    .node-pulse {
+        animation:nodeGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes nodeGlow {
+        0%,100% {
+            opacity:.45;
+            filter:drop-shadow(0 0 2px currentColor);
+        }
+        50% {
+            opacity:1;
+            filter:drop-shadow(0 0 8px currentColor);
+        }
+    }
+
+    .circuit-particles circle {
+        animation:particlePulse 3s ease-in-out infinite;
+        transform-box:fill-box;
+        transform-origin:center;
+    }
+
+    .circuit-particles circle:nth-child(2) {
+        animation-delay:.7s;
+    }
+
+    .circuit-particles circle:nth-child(3) {
+        animation-delay:1.4s;
+    }
+
+    .circuit-particles circle:nth-child(4) {
+        animation-delay:2.1s;
+    }
+
+    @keyframes particlePulse {
+        0%,100% {
+            opacity:.3;
+            transform:scale(.8);
+        }
+        50% {
+            opacity:1;
+            transform:scale(1.35);
+        }
+    }
+
+    .header-title-text {
+        margin:0 !important;
+        padding:0 !important;
+        font-size:2rem !important;
+        line-height:1.2 !important;
+        font-weight:800 !important;
+        letter-spacing:-.02em !important;
+        color:#f8fafc !important;
+    }
+
+    .header-subtitle-text {
+        color:#94a3b8;
+        font-size:14px;
+        font-weight:500;
+        margin-top:5px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .animated-ai-logo,
+        .logo-rotate,
+        .scan-line,
+        .node-pulse,
+        .circuit-particles circle {
+            animation:none !important;
+        }
+    }
+
+
+/* ============================================================
+   HISTORY PAGE POLISH
+   ============================================================ */
+
+/* Dark search input */
+.stTextInput input {
+    background: #111827 !important;
+    color: #F8FAFC !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px !important;
+    min-height: 46px !important;
+    padding: 0 14px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stTextInput input:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.15) !important;
+}
+
+.stTextInput input::placeholder {
+    color: #64748B !important;
+}
+
+/* Purple selected radio instead of Streamlit red */
+.stRadio [role="radiogroup"] label input {
+    accent-color: #6366F1 !important;
+}
+
+/* History KPI cards */
+.history-kpi {
+    background: linear-gradient(145deg, rgba(17,24,39,0.95), rgba(15,23,42,0.98));
+    border: 1px solid rgba(99,102,241,0.22);
+    border-radius: 14px;
+    padding: 14px 16px;
+    min-height: 82px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+}
+
+.history-kpi-value {
+    color: #F8FAFC;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.history-kpi-label {
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.history-section-label {
+    color: #CBD5E1;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 18px 0 8px 0;
+}
+
+</style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# ============================================================
+# PROFESSIONAL HEADER + LEFT NAVIGATION
+# ============================================================
+
+# Global UI animation + sidebar styling.  The evaluation/backend
+# logic below is intentionally unchanged.
+st.markdown(
+    """
+    <style>
+    /* --------------------------------------------------------
+       PROFESSIONAL APP SHELL
+       -------------------------------------------------------- */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #090d18 0%, #0d1222 55%, #0a0f1b 100%);
+        border-right: 1px solid #252d4a;
+    }
+
+    [data-testid="stSidebarContent"] {
+        padding: 1.2rem 0.9rem 1.5rem 0.9rem;
+    }
+
+    [data-testid="stSidebar"] .stButton > button {
+        width: 100%;
+        min-height: 48px;
+        margin: 5px 0;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        background: rgba(17, 24, 39, 0.70);
+        color: #cbd5e1;
+        text-align: left;
+        padding: 0 14px;
+        font-weight: 600;
+        transition: all .22s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    [data-testid="stSidebar"] .stButton > button:hover {
+        transform: translateX(4px);
+        background: rgba(79, 70, 229, .14);
+        border-color: rgba(129, 140, 248, .35);
+        color: #f8fafc;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, .16);
+    }
+
+    [data-testid="stSidebar"] .stButton > button[kind="primary"],
+    [data-testid="stSidebar"] .stButton > button[data-testid="stBaseButton-primary"] {
+        background: linear-gradient(135deg, rgba(99,102,241,.28), rgba(168,85,247,.20));
+        border: 1px solid rgba(129,140,248,.48);
+        color: #ffffff;
+        box-shadow: 0 8px 26px rgba(99,102,241,.18);
+    }
+
+    [data-testid="stSidebar"] .stButton > button[kind="primary"]::before,
+    [data-testid="stSidebar"] .stButton > button[data-testid="stBaseButton-primary"]::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        bottom: 9px;
+        width: 3px;
+        border-radius: 0 5px 5px 0;
+        background: #a78bfa;
+        box-shadow: 0 0 12px rgba(167,139,250,.8);
+    }
+
+    /* Stagger the navigation entrance. */
+    [data-testid="stSidebar"] .stButton:nth-of-type(1) { animation: navIn .45s ease both .05s; }
+    [data-testid="stSidebar"] .stButton:nth-of-type(2) { animation: navIn .45s ease both .11s; }
+    [data-testid="stSidebar"] .stButton:nth-of-type(3) { animation: navIn .45s ease both .17s; }
+    [data-testid="stSidebar"] .stButton:nth-of-type(4) { animation: navIn .45s ease both .23s; }
+
+    @keyframes navIn {
+        from { opacity: 0; transform: translateX(-14px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Header reveal */
+    .app-header {
+        width: 100%;
+        min-height: 190px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+        padding: 12px 18px 18px 18px;
+        box-sizing: border-box;
+        animation: headerReveal .65s ease both;
+    }
+
+    @keyframes headerReveal {
+        from { opacity: 0; transform: translateY(-14px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .app-logo {
+        width: 180px;
+        height: 180px;
+        flex: 0 0 180px;
+        overflow: visible;
+        animation: logoFloat 4s ease-in-out infinite, logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-7px) scale(1.025); }
+    }
+
+    @keyframes logoGlow {
+        0%, 100% { filter: drop-shadow(0 0 10px rgba(56,189,248,.35)) drop-shadow(0 0 18px rgba(99,102,241,.18)); }
+        50% { filter: drop-shadow(0 0 18px rgba(56,189,248,.55)) drop-shadow(0 0 30px rgba(168,85,247,.25)); }
+    }
+
+    .logo-rings {
+        transform-origin: 80px 80px;
+        animation: ringSpin 13s linear infinite;
+    }
+
+    @keyframes ringSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .logo-scan {
+        animation: scanMove 2.7s ease-in-out infinite;
+    }
+
+    @keyframes scanMove {
+        0%, 100% { transform: translateY(-13px); opacity: 0; }
+        18% { opacity: 1; }
+        50% { transform: translateY(28px); opacity: 1; }
+        82% { opacity: 1; }
+    }
+
+    .logo-node {
+        animation: nodePulse 2s ease-in-out infinite;
+    }
+
+    .logo-node:nth-of-type(2) { animation-delay: .35s; }
+    .logo-node:nth-of-type(3) { animation-delay: .7s; }
+    .logo-node:nth-of-type(4) { animation-delay: 1.05s; }
+
+    @keyframes nodePulse {
+        0%, 100% { opacity: .35; transform: scale(.82); }
+        50% { opacity: 1; transform: scale(1.22); }
+    }
+
+    .header-copy {
+        text-align: center;
+        animation: copyReveal .75s ease both .12s;
+    }
+
+    @keyframes copyReveal {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .app-title {
+        color: #f8fafc;
+        font-size: 40px;
+        line-height: 1.12;
+        font-weight: 850;
+        letter-spacing: -.025em;
+        margin: 0;
+    }
+
+    .app-subtitle {
+        color: #94a3b8;
+        font-size: 15px;
+        font-weight: 500;
+        margin-top: 10px;
+    }
+
+    .system-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 7px 12px;
+        border: 1px solid rgba(52,211,153,.25);
+        border-radius: 999px;
+        background: rgba(16,185,129,.07);
+        color: #a7f3d0;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .02em;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 0 rgba(52,211,153,.7);
+        animation: statusPulse 1.8s infinite;
+    }
+
+    @keyframes statusPulse {
+        0% { box-shadow: 0 0 0 0 rgba(52,211,153,.65); }
+        70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+        100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+    }
+
+    .sidebar-brand {
+        padding: 5px 6px 20px 6px;
+        animation: copyReveal .55s ease both;
+    }
+
+    .sidebar-brand-title {
+        color: #f8fafc;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -.01em;
+    }
+
+    .sidebar-brand-subtitle {
+        color: #64748b;
+        font-size: 11px;
+        margin-top: 4px;
+    }
+
+    .sidebar-section-label {
+        color: #64748b;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        margin: 8px 6px 7px 6px;
+    }
+
+    .sidebar-divider {
+        height: 1px;
+        background: #252d4a;
+        margin: 18px 6px;
+    }
+
+    .sidebar-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #94a3b8;
+        font-size: 12px;
+        padding: 0 6px;
+    }
+
+    .sidebar-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #34d399;
+        animation: statusPulse 1.8s infinite;
+    }
+
+    /* Subtle page and interaction animations. */
+    .main .block-container {
+        animation: pageReveal .55s ease both;
+    }
+
+    @keyframes pageReveal {
+        from { opacity: 0; transform: translateY(7px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stButton > button,
+    [data-testid="stDownloadButton"] button {
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease !important;
+    }
+
+    .stButton > button:active,
+    [data-testid="stDownloadButton"] button:active {
+        transform: scale(.98) !important;
+    }
+
+    [data-testid="stExpander"] {
+        transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    [data-testid="stExpander"]:hover {
+        border-color: rgba(99,102,241,.35) !important;
+        box-shadow: 0 8px 24px rgba(0,0,0,.12);
+    }
+
+    /* Make normal Streamlit content feel slightly more polished. */
+    div[data-testid="stMetric"] {
+        animation: cardReveal .45s ease both;
+    }
+
+    @keyframes cardReveal {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+        .app-header { gap: 18px; min-height: 160px; }
+        .app-logo { width: 145px; height: 145px; flex-basis: 145px; }
+        .app-title { font-size: 31px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-
 # ============================================================
-# HEADER
+# HEADER — LOGO STAYS OUTSIDE THE SIDEBAR
 # ============================================================
 
-st.title(
-    "🛡️ AI Response Validation System"
+components.html(
+    """
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .app-header {
+            width: 100%;
+            height: 205px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            box-sizing: border-box;
+            padding: 8px 16px 14px;
+            color: #f8fafc;
+            font-family: Arial, sans-serif;
+            animation: headerReveal .65s ease both;
+        }
+
+        .app-logo {
+            width: 180px;
+            height: 180px;
+            flex: 0 0 180px;
+            overflow: visible;
+            transform-origin: center;
+            animation: logoFloat 4s ease-in-out infinite, logoGlow 3s ease-in-out infinite;
+        }
+
+        .logo-rings {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: ringSpin 13s linear infinite;
+        }
+
+        .logo-scan {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: scanMove 2.7s ease-in-out infinite;
+        }
+
+        .logo-node {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: nodePulse 2s ease-in-out infinite;
+        }
+
+        .logo-node:nth-of-type(2) { animation-delay: .35s; }
+        .logo-node:nth-of-type(3) { animation-delay: .7s; }
+        .logo-node:nth-of-type(4) { animation-delay: 1.05s; }
+
+        .header-copy {
+            text-align: center;
+            max-width: 760px;
+            animation: copyReveal .75s ease both .12s;
+        }
+
+        .app-title {
+            margin: 0;
+            color: #f8fafc;
+            font-size: 40px;
+            line-height: 1.12;
+            font-weight: 800;
+            letter-spacing: -.025em;
+        }
+
+        .app-subtitle {
+            margin-top: 10px;
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 7px 12px;
+            border: 1px solid rgba(52,211,153,.25);
+            border-radius: 999px;
+            background: rgba(16,185,129,.07);
+            color: #a7f3d0;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .02em;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            animation: statusPulse 1.8s infinite;
+        }
+
+        @keyframes headerReveal {
+            from { opacity: 0; transform: translateY(-14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes copyReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-7px) scale(1.025); }
+        }
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(56,189,248,.35)) drop-shadow(0 0 18px rgba(99,102,241,.18)); }
+            50% { filter: drop-shadow(0 0 18px rgba(56,189,248,.55)) drop-shadow(0 0 30px rgba(168,85,247,.25)); }
+        }
+        @keyframes ringSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes scanMove {
+            0%, 100% { transform: translateY(-13px); opacity: 0; }
+            18% { opacity: 1; }
+            50% { transform: translateY(28px); opacity: 1; }
+            82% { opacity: 1; }
+        }
+        @keyframes nodePulse {
+            0%, 100% { opacity: .35; transform: scale(.82); }
+            50% { opacity: 1; transform: scale(1.22); }
+        }
+        @keyframes statusPulse {
+            0% { box-shadow: 0 0 0 0 rgba(52,211,153,.65); }
+            70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+            100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+        }
+
+        @media (max-width: 900px) {
+            .app-header { gap: 16px; height: 175px; }
+            .app-logo { width: 145px; height: 145px; flex-basis: 145px; }
+            .app-title { font-size: 31px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+    <div class="app-header">
+        <svg class="app-logo" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="mainLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="50%" stop-color="#6366f1"/>
+                    <stop offset="100%" stop-color="#a855f7"/>
+                </linearGradient>
+                <linearGradient id="mainScanGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="transparent"/>
+                    <stop offset="50%" stop-color="#22d3ee"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                </linearGradient>
+                <filter id="mainLogoGlow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+            </defs>
+
+            <g class="logo-rings">
+                <circle cx="80" cy="80" r="70" fill="none" stroke="url(#mainLogoGradient)" stroke-width="2.5" stroke-dasharray="28 12 5 12" opacity=".85"/>
+                <circle cx="80" cy="80" r="64" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4 8" opacity=".38"/>
+            </g>
+
+            <g stroke="url(#mainLogoGradient)" stroke-width="2" fill="none" opacity=".8">
+                <path d="M32 67 H18 V55"/>
+                <path d="M118 61 H140 V42"/>
+                <path d="M38 96 H22 V117"/>
+                <path d="M118 92 H138 V119"/>
+            </g>
+
+            <circle cx="18" cy="55" r="3" fill="#22d3ee" class="logo-node"/>
+            <circle cx="140" cy="42" r="3" fill="#a855f7" class="logo-node"/>
+            <circle cx="22" cy="117" r="3" fill="#38bdf8" class="logo-node"/>
+            <circle cx="138" cy="119" r="3" fill="#818cf8" class="logo-node"/>
+
+            <g filter="url(#mainLogoGlow)">
+                <circle cx="70" cy="67" r="38" fill="#0f172a" stroke="url(#mainLogoGradient)" stroke-width="6"/>
+                <circle cx="70" cy="67" r="31" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" opacity=".8"/>
+                <text x="70" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" font-weight="800" fill="#f8fafc">AI</text>
+                <rect class="logo-scan" x="35" y="45" width="70" height="3" rx="2" fill="url(#mainScanGradient)"/>
+                <path d="M45 52 L45 47 L51 47 M89 47 L95 47 L95 52 M45 82 L45 87 L51 87 M89 87 L95 87 L95 82" stroke="#22d3ee" stroke-width="2" fill="none"/>
+                <rect x="98" y="96" width="12" height="38" rx="6" transform="rotate(-42 104 96)" fill="url(#mainLogoGradient)"/>
+                <rect x="101" y="100" width="5" height="28" rx="2.5" transform="rotate(-42 104 100)" fill="#7dd3fc" opacity=".65"/>
+            </g>
+        </svg>
+
+        <div class="header-copy">
+            <div class="app-title">AI Response Validation System</div>
+            <div class="app-subtitle">Agent Workspace · Independent validation agents · Weighted final verdict</div>
+            <div class="system-status"><span class="status-dot"></span> Validation System Online</div>
+        </div>
+    </div>
+    """,
+    height=205,
+    scrolling=False,
 )
 
-st.caption(
-    "Agent Workspace · Independent validation agents · "
-    "Weighted final verdict"
-)
-
-
 # ============================================================
-# NAVIGATION
+# LEFT SIDEBAR NAVIGATION
 # ============================================================
 
-nav_col1, nav_col2, nav_col3, nav_col4 = (
-    st.columns(4)
-)
+with st.sidebar:
+    st.markdown(
+        """
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-title">Validation Console</div>
+            <div class="sidebar-brand-subtitle">Multi-agent evaluation workspace</div>
+        </div>
+        <div class="sidebar-section-label">Navigation</div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-nav_items = [
-    (
-        "🏠 Dashboard",
-        "Dashboard",
-    ),
-    (
-        "🔍 Single Evaluation",
-        "Single Evaluation",
-    ),
-    (
-        "📊 Batch Evaluation",
-        "Batch Evaluation",
-    ),
-    (
-        "🕘 History",
-        "History",
-    ),
-]
+    nav_items = [
+        ("🏠  Dashboard", "Dashboard"),
+        ("🔍  Single Evaluation", "Single Evaluation"),
+        ("📊  Batch Evaluation", "Batch Evaluation"),
+        ("🕘  History", "History"),
+    ]
 
-for col, (
-    label,
-    value,
-) in zip(
-    [
-        nav_col1,
-        nav_col2,
-        nav_col3,
-        nav_col4,
-    ],
-    nav_items,
-):
-
-    with col:
-
-        is_active = (
-            st.session_state.page
-            == value
-        )
-
-        button_label = (
-            f"●  {label}"
-            if is_active
-            else label
-        )
+    for label, value in nav_items:
+        is_active = st.session_state.page == value
+        button_label = f"●  {label}" if is_active else label
 
         if st.button(
             button_label,
@@ -2286,1444 +3115,552 @@ for col, (
             use_container_width=True,
             type="primary" if is_active else "secondary",
         ):
-
             st.session_state.page = value
-
             st.rerun()
 
+    st.markdown(
+        """
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-status">
+            <span class="sidebar-status-dot"></span>
+            <span>System online · Agents ready</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 page = st.session_state.page
 
 
 
 def generate_batch_pdf(results_df):
+    """Generate a detailed batch PDF with per-record agent reasoning."""
     buffer = io.BytesIO()
 
     doc = SimpleDocTemplate(
         buffer,
         pagesize=A4,
-        rightMargin=30,
-        leftMargin=30,
-        topMargin=30,
-        bottomMargin=30,
+        rightMargin=35,
+        leftMargin=35,
+        topMargin=35,
+        bottomMargin=35,
     )
 
     styles = getSampleStyleSheet()
-
     title_style = ParagraphStyle(
-        "BatchTitleStyle",
-        parent=styles["Title"],
-        alignment=TA_CENTER,
-        fontSize=18,
-        spaceAfter=12,
+        "BatchTitle", parent=styles["Title"],
+        alignment=TA_CENTER, fontSize=18, spaceAfter=12,
     )
-
     heading_style = ParagraphStyle(
-        "BatchHeadingStyle",
-        parent=styles["Heading2"],
-        fontSize=13,
-        spaceBefore=12,
-        spaceAfter=8,
+        "BatchHeading", parent=styles["Heading2"],
+        fontSize=14, spaceBefore=12, spaceAfter=8,
     )
-
     subheading_style = ParagraphStyle(
-        "BatchSubHeadingStyle",
-        parent=styles["Heading3"],
-        fontSize=10,
-        spaceBefore=8,
-        spaceAfter=5,
+        "BatchSubHeading", parent=styles["Heading3"],
+        fontSize=11, spaceBefore=8, spaceAfter=5,
     )
-
     body_style = ParagraphStyle(
-        "BatchBodyStyle",
-        parent=styles["BodyText"],
-        fontSize=8.5,
-        leading=11,
-        spaceAfter=5,
+        "BatchBody", parent=styles["BodyText"],
+        fontSize=9, leading=12, spaceAfter=5,
     )
-
-    small_style = ParagraphStyle(
-        "BatchSmallStyle",
-        parent=styles["BodyText"],
-        fontSize=7.5,
-        leading=10,
-        spaceAfter=3,
-    )
-
-    def pdf_value(value, default="Not available."):
-        if value is None:
-            return default
-        text_value = str(value).strip()
-        return text_value if text_value else default
-
-    def pdf_paragraph(label, value, style=body_style):
-        return Paragraph(
-            f"<b>{html.escape(label)}</b><br/>"
-            f"{html.escape(pdf_value(value))}",
-            style,
-        )
-
-    def result_dict(row, column):
-        return json_value(row.get(column, {}))
 
     story = []
 
-    # ========================================================
-    # TITLE
-    # ========================================================
+    def safe_text(value):
+        text_value = "" if value is None else str(value)
+        return (text_value.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\n", "<br/>"))
 
-    story.append(
-        Paragraph(
-            "AI Response Validation System",
-            title_style,
-        )
-    )
+    def add_label(label, value):
+        story.append(Paragraph(
+            f"<b>{safe_text(label)}</b> {safe_text(value)}",
+            body_style,
+        ))
 
-    story.append(
-        Paragraph(
-            "Batch Evaluation Report",
-            heading_style,
-        )
-    )
+    def result(row, key):
+        return json_value(row.get(key, {}))
 
-    story.append(Spacer(1, 10))
+    total = len(results_df)
+    success = results_df[results_df["Status"] == "Success"]
+    failed = results_df[results_df["Status"].astype(str).str.startswith("Failed")]
+    skipped = results_df[results_df["Status"].astype(str).str.startswith("Skipped")]
+    invalid = results_df[results_df["Status"].astype(str).str.startswith("Invalid")]
 
-    # ========================================================
-    # STATISTICS
-    # ========================================================
+    story.append(Paragraph("AI Response Validation System", title_style))
+    story.append(Paragraph("Detailed Batch Evaluation Report", heading_style))
+    story.append(Paragraph(
+        "Detailed individual evaluation results generated from the batch validation pipeline.",
+        body_style,
+    ))
 
-    total_records = len(results_df)
-
-    successful = results_df[
-        results_df["Status"] == "Success"
+    story.append(Paragraph("Batch Statistics", heading_style))
+    stats = [
+        ["Metric", "Value"],
+        ["Total Records", str(total)],
+        ["Successful", str(len(success))],
+        ["Failed", str(len(failed))],
+        ["Skipped", str(len(skipped))],
+        ["Invalid Input", str(len(invalid))],
     ]
+    table = Table(stats, colWidths=[260, 120])
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+        ("GRID", (0,0), (-1,-1), 0.5, colors.grey),
+        ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+        ("ALIGN", (1,1), (-1,-1), "CENTER"),
+        ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
+        ("TOPPADDING", (0,0), (-1,-1), 6),
+        ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+    ]))
+    story.append(table)
 
-    failed = results_df[
-        results_df["Status"].astype(str).str.startswith("Failed")
-    ]
-
-    skipped = results_df[
-        results_df["Status"].astype(str).str.startswith("Skipped")
-    ]
-
-    invalid = results_df[
-        results_df["Status"].astype(str).str.startswith("Invalid")
-    ]
-
-    for label, value in [
-        ("Total Records", total_records),
-        ("Successful", len(successful)),
-        ("Failed", len(failed)),
-        ("Skipped", len(skipped)),
-        ("Invalid", len(invalid)),
-    ]:
-        story.append(
-            Paragraph(
-                f"<b>{label}:</b> {value}",
-                body_style,
-            )
-        )
-
-    story.append(Spacer(1, 10))
-
-    # ========================================================
-    # AVERAGE SCORES
-    # ========================================================
-
-    if not successful.empty:
-        story.append(
-            Paragraph(
-                "Average Agent Scores",
-                heading_style,
-            )
-        )
-
-        avg_data = [
+    if not success.empty:
+        story.append(Paragraph("Average Agent Scores", heading_style))
+        avg = [
             ["Agent", "Average Score"],
-            [
-                "Relevance",
-                f"{successful['Relevance'].mean():.2f}/5",
-            ],
-            [
-                "Accuracy",
-                f"{successful['Accuracy'].mean():.2f}/5",
-            ],
-            [
-                "Completeness",
-                f"{successful['Completeness'].mean():.2f}/5",
-            ],
-            [
-                "Hallucination",
-                f"{successful['Hallucination'].mean():.2f}/5",
-            ],
+            ["Relevance", f"{success['Relevance'].mean():.2f}/5"],
+            ["Accuracy", f"{success['Accuracy'].mean():.2f}/5"],
+            ["Completeness", f"{success['Completeness'].mean():.2f}/5"],
+            ["Hallucination", f"{success['Hallucination'].mean():.2f}/5"],
         ]
+        table = Table(avg, colWidths=[260, 120])
+        table.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+            ("GRID", (0,0), (-1,-1), 0.5, colors.grey),
+            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+            ("ALIGN", (1,1), (-1,-1), "CENTER"),
+            ("TOPPADDING", (0,0), (-1,-1), 6),
+            ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+        ]))
+        story.append(table)
 
-        avg_table = Table(
-            avg_data,
-            colWidths=[250, 150],
-        )
-
-        avg_table.setStyle(
-            TableStyle(
-                [
-                    ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
-                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                    ("ALIGN", (1, 1), (-1, -1), "CENTER"),
-                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-                    ("TOPPADDING", (0, 0), (-1, -1), 6),
-                ]
-            )
-        )
-
-        story.append(avg_table)
-        story.append(Spacer(1, 15))
-
-    # ========================================================
-    # SUMMARY TABLE
-    # ========================================================
-
-    story.append(
-        Paragraph(
-            "Evaluation Results",
-            heading_style,
-        )
-    )
-
-    table_data = [
-        [
-            "ID",
-            "Relevance",
-            "Accuracy",
-            "Completeness",
-            "Hallucination",
-            "Score",
-            "Verdict",
-            "Risk",
-            "Status",
-        ]
-    ]
+    story.append(Paragraph("Detailed Individual Record Analysis", heading_style))
 
     for _, row in results_df.iterrows():
-        table_data.append(
-            [
-                str(row.get("Response ID", "")),
-                str(row.get("Relevance", "")),
-                str(row.get("Accuracy", "")),
-                str(row.get("Completeness", "")),
-                str(row.get("Hallucination", "")),
-                str(row.get("Overall Score", "")),
-                str(row.get("Verdict", "")),
-                str(row.get("Risk Level", "")),
-                str(row.get("Status", "")),
-            ]
-        )
-
-    results_table = Table(
-        table_data,
-        repeatRows=1,
-        colWidths=[
-            35,
-            45,
-            45,
-            55,
-            55,
-            40,
-            55,
-            50,
-            70,
-        ],
-    )
-
-    results_table.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
-                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                ("FONTSIZE", (0, 0), (-1, -1), 6.5),
-                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-                ("TOPPADDING", (0, 0), (-1, -1), 5),
-            ]
-        )
-    )
-
-    story.append(results_table)
-    story.append(Spacer(1, 18))
-
-    # ========================================================
-    # DETAILED PER-RECORD ANALYSIS
-    # ========================================================
-
-    story.append(
-        Paragraph(
-            "Detailed Record Analysis",
-            heading_style,
-        )
-    )
-
-    for _, row in results_df.iterrows():
-
-        response_id = row.get("Response ID", "")
+        response_id = row.get("Response ID", "Unknown")
         status = str(row.get("Status", "Unknown"))
+        story.append(Paragraph(f"Record {safe_text(response_id)}", heading_style))
+        add_label("Status:", status)
+        add_label("Question:", row.get("Question", ""))
+        add_label("AI Response:", row.get("AI Response", "") or "No AI response available.")
+        add_label("Reference Answer:", row.get("Reference Answer", "") or "Not provided")
 
-        story.append(
-            Paragraph(
-                f"Record {html.escape(str(response_id))}",
-                subheading_style,
-            )
-        )
-
-        # Input data
-        story.append(
-            Paragraph(
-                "Evaluation Input",
-                subheading_style,
-            )
-        )
-
-        story.append(
-            pdf_paragraph(
-                "Question:",
-                row.get("Question", ""),
-            )
-        )
-
-        story.append(
-            pdf_paragraph(
-                "AI Response:",
-                row.get("AI Response", ""),
-            )
-        )
-
-        reference_answer = row.get(
-            "Reference Answer",
-            "",
-        )
-
-        story.append(
-            pdf_paragraph(
-                "Reference Answer:",
-                reference_answer
-                if pdf_value(reference_answer) != "Not available."
-                else "No reference answer provided.",
-            )
-        )
-
-        # Invalid / failed records do not have agent analysis.
         if status != "Success":
-
-            story.append(
-                Paragraph(
-                    f"<b>Status:</b> {html.escape(status)}",
-                    body_style,
-                )
-            )
-
-            story.append(
-                pdf_paragraph(
-                    "Reason:",
-                    row.get("Error", ""),
-                )
-            )
-
-            story.append(Spacer(1, 8))
+            story.append(Paragraph("Evaluation could not be completed.", subheading_style))
+            add_label("Error:", row.get("Error", "No error details available."))
+            story.append(Spacer(1, 10))
             continue
 
-        relevance = result_dict(
-            row,
-            "Relevance Result",
-        )
-        accuracy = result_dict(
-            row,
-            "Accuracy Result",
-        )
-        completeness = result_dict(
-            row,
-            "Completeness Result",
-        )
-        hallucination = result_dict(
-            row,
-            "Hallucination Result",
-        )
-        verdict = result_dict(
-            row,
-            "Verdict Result",
-        )
+        relevance = result(row, "Relevance Result")
+        accuracy = result(row, "Accuracy Result")
+        completeness = result(row, "Completeness Result")
+        hallucination = result(row, "Hallucination Result")
+        verdict = result(row, "Verdict Result")
 
-        risk_info = get_risk_level(
-            hallucination
-        )
+        score = float(row.get("Overall Score", 0) or 0)
+        verdict_name = str(verdict.get("verdict", row.get("Verdict", "Unknown")))
+        risk = str(row.get("Risk Level", "Unknown") or "Unknown")
 
-        verdict_text, verdict_name, overall_score = (
-            format_verdict_summary(verdict)
-        )
+        story.append(Paragraph("Final Evaluation Verdict", subheading_style))
+        final = Table([
+            ["System Verdict", "Weighted Score", "Hallucination Risk"],
+            [verdict_name, f"{score:.1f} / 5.0", risk],
+        ], colWidths=[125, 125, 130])
+        final.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+            ("GRID", (0,0), (-1,-1), 0.5, colors.grey),
+            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+            ("ALIGN", (0,0), (-1,-1), "CENTER"),
+            ("TOPPADDING", (0,0), (-1,-1), 6),
+            ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+        ]))
+        story.append(final)
 
-        # Final result
-        story.append(
-            Paragraph(
-                "Final Evaluation",
-                subheading_style,
-            )
-        )
+        story.append(Paragraph("Verdict Summary", subheading_style))
+        summary = (verdict.get("summary") or verdict.get("explanation") or
+                   verdict.get("reasoning") or verdict.get("verdict_explanation") or
+                   verdict.get("analysis"))
+        if summary:
+            story.append(Paragraph(safe_text(summary), body_style))
+        else:
+            parts = []
+            for label, agent in [
+                ("Accuracy", accuracy),
+                ("Completeness", completeness),
+                ("Relevance", relevance),
+                ("Hallucination", hallucination),
+            ]:
+                if agent.get("reasoning"):
+                    parts.append(f"<b>{label}:</b> {safe_text(agent['reasoning'])}")
+            story.append(Paragraph(" ".join(parts) or "No verdict summary returned.", body_style))
 
-        final_data = [
-            ["Metric", "Result"],
-            [
-                "System Verdict",
-                pdf_value(verdict_name),
-            ],
-            [
-                "Weighted Score",
-                f"{overall_score:.1f} / 5.0",
-            ],
-            [
-                "Hallucination Risk",
-                pdf_value(risk_info["text"]),
-            ],
-            [
-                "Status",
-                "Success",
-            ],
-        ]
-
-        final_table = Table(
-            final_data,
-            colWidths=[170, 260],
-        )
-
-        final_table.setStyle(
-            TableStyle(
-                [
-                    ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                    ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
-                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                    ("FONTNAME", (0, 1), (0, -1), "Helvetica-Bold"),
-                    ("FONTSIZE", (0, 0), (-1, -1), 8),
-                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-                    ("TOPPADDING", (0, 0), (-1, -1), 5),
-                ]
-            )
-        )
-
-        story.append(final_table)
-
-        # Agent scores
-        story.append(
-            Paragraph(
-                "Agent Scores and Analysis",
-                subheading_style,
-            )
-        )
-
-        agent_rows = [
-            ["Agent", "Score", "Analysis"],
-            [
-                "Relevance",
-                f"{float(relevance.get('score', 0) or 0):.1f}/5",
-                pdf_value(
-                    relevance.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                ),
-            ],
-            [
-                "Accuracy",
-                f"{float(accuracy.get('score', 0) or 0):.1f}/5",
-                pdf_value(
-                    accuracy.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                ),
-            ],
-            [
-                "Completeness",
-                f"{float(completeness.get('score', 0) or 0):.1f}/5",
-                pdf_value(
-                    completeness.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                ),
-            ],
-            [
-                "Hallucination",
-                f"{float(hallucination.get('score', 0) or 0):.1f}/5",
-                pdf_value(
-                    hallucination.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                ),
-            ],
-        ]
-
-        agent_table_data = []
-
-        for row_data in agent_rows:
-            agent_table_data.append(
-                [
-                    Paragraph(
-                        html.escape(str(row_data[0])),
-                        small_style,
-                    ),
-                    Paragraph(
-                        html.escape(str(row_data[1])),
-                        small_style,
-                    ),
-                    Paragraph(
-                        html.escape(str(row_data[2])),
-                        small_style,
-                    ),
-                ]
-            )
-
-        agent_table = Table(
-            agent_table_data,
-            colWidths=[85, 55, 290],
-            repeatRows=1,
-        )
-
-        agent_table.setStyle(
-            TableStyle(
-                [
-                    ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
-                    ("GRID", (0, 0), (-1, -1), 0.4, colors.grey),
-                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                    ("FONTSIZE", (0, 0), (-1, -1), 7),
-                    ("ALIGN", (1, 1), (1, -1), "CENTER"),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
-                    ("TOPPADDING", (0, 0), (-1, -1), 4),
-                ]
-            )
-        )
-
+        story.append(Paragraph("Agent Workspace", subheading_style))
+        agent_table = Table([
+            ["Agent", "Score"],
+            ["Relevance", f"{float(relevance.get('score',0) or 0):.1f}/5"],
+            ["Accuracy", f"{float(accuracy.get('score',0) or 0):.1f}/5"],
+            ["Completeness", f"{float(completeness.get('score',0) or 0):.1f}/5"],
+            ["Hallucination Detection", f"{float(hallucination.get('score',0) or 0):.1f}/5"],
+        ], colWidths=[260, 120])
+        agent_table.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.lightgrey),
+            ("GRID", (0,0), (-1,-1), 0.5, colors.grey),
+            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+            ("ALIGN", (1,1), (-1,-1), "CENTER"),
+            ("TOPPADDING", (0,0), (-1,-1), 5),
+            ("BOTTOMPADDING", (0,0), (-1,-1), 5),
+        ]))
         story.append(agent_table)
 
-        # Supporting evidence
-        evidence = accuracy.get(
-            "supporting_evidence",
-            [],
-        ) or []
+        for title, agent in [
+            ("Relevance Agent", relevance),
+            ("Accuracy Agent", accuracy),
+            ("Completeness Agent", completeness),
+            ("Hallucination Detection Agent", hallucination),
+        ]:
+            story.append(Paragraph(title, subheading_style))
+            add_label("Reasoning:", agent.get("reasoning", "No reasoning returned."))
 
-        if evidence:
-            story.append(
-                Paragraph(
-                    "Supporting Evidence",
-                    subheading_style,
-                )
-            )
+            evidence = agent.get("supporting_evidence", []) or []
+            if evidence:
+                story.append(Paragraph("<b>Supporting Evidence</b>", body_style))
+                for item in evidence:
+                    story.append(Paragraph("• " + safe_text(item), body_style))
 
-            for item in evidence:
-                story.append(
-                    Paragraph(
-                        "• " + html.escape(str(item)),
-                        small_style,
-                    )
-                )
-
-        # Missing components
-        missing = completeness.get(
-            "missing_components",
-            [],
-        ) or []
-
-        if missing:
-            story.append(
-                Paragraph(
-                    "Missing Components",
-                    subheading_style,
-                )
-            )
-
-            for item in missing:
-                story.append(
-                    Paragraph(
-                        "• " + html.escape(str(item)),
-                        small_style,
-                    )
-                )
-
-        # Flagged hallucination claims
-        flagged = hallucination.get(
-            "flagged_claims",
-            [],
-        ) or []
-
-        if flagged:
-            story.append(
-                Paragraph(
-                    "Flagged Hallucination Claims",
-                    subheading_style,
-                )
-            )
-
-            for i, claim in enumerate(
-                flagged,
-                1,
-            ):
-                if isinstance(claim, dict):
-                    claim_text = str(
-                        claim.get(
-                            "claim",
-                            "Not available.",
-                        )
-                    )
-                    classification = str(
-                        claim.get(
-                            "classification",
-                            "Flagged",
-                        )
-                    )
-                    reason = str(
-                        claim.get(
-                            "reason",
-                            "No additional explanation returned.",
-                        )
-                    )
+            if title == "Completeness Agent":
+                missing = agent.get("missing_components", []) or []
+                if missing:
+                    story.append(Paragraph("<b>Missing Components</b>", body_style))
+                    for item in missing:
+                        story.append(Paragraph("• " + safe_text(item), body_style))
                 else:
-                    claim_text = str(claim)
-                    classification = "Flagged"
-                    reason = (
-                        "No additional explanation returned."
-                    )
+                    story.append(Paragraph("<b>Missing Components:</b> None identified.", body_style))
 
-                story.append(
-                    Paragraph(
-                        f"<b>Claim #{i} — "
-                        f"{html.escape(classification)}</b>",
-                        small_style,
-                    )
-                )
+            if title == "Hallucination Detection Agent":
+                claims = agent.get("flagged_claims", []) or []
+                if claims:
+                    story.append(Paragraph(f"<b>{len(claims)} flagged claim(s) detected.</b>", body_style))
+                    for i, claim in enumerate(claims, 1):
+                        if isinstance(claim, dict):
+                            claim_text = claim.get("claim", "Not available.")
+                            classification = claim.get("classification", "Flagged")
+                            reason = claim.get("reason", "No additional explanation returned.")
+                        else:
+                            claim_text = claim
+                            classification = "Flagged"
+                            reason = "No additional explanation returned."
+                        story.append(Paragraph(
+                            f"<b>Flagged Claim #{i} — {safe_text(classification)}</b>",
+                            body_style,
+                        ))
+                        add_label("Claim:", claim_text)
+                        add_label("Reason:", reason)
+                else:
+                    story.append(Paragraph("<b>Flagged Claims:</b> None detected.", body_style))
 
-                story.append(
-                    Paragraph(
-                        f"<b>Claim:</b> "
-                        f"{html.escape(claim_text)}",
-                        small_style,
-                    )
-                )
-
-                story.append(
-                    Paragraph(
-                        f"<b>Reason:</b> "
-                        f"{html.escape(reason)}",
-                        small_style,
-                    )
-                )
-
-        # Verdict agent reasoning
-        if verdict_text:
-            story.append(
-                Paragraph(
-                    "Verdict Agent Analysis",
-                    subheading_style,
-                )
-            )
-
-            story.append(
-                Paragraph(
-                    html.escape(str(verdict_text)),
-                    body_style,
-                )
-            )
-
+        story.append(Paragraph("Verdict Agent Analysis", subheading_style))
+        verdict_reasoning = (verdict.get("reasoning") or verdict.get("explanation") or
+                             verdict.get("summary") or verdict.get("verdict_explanation") or
+                             verdict.get("analysis"))
+        story.append(Paragraph(
+            safe_text(verdict_reasoning or "No separate Verdict Agent reasoning was returned."),
+            body_style,
+        ))
         story.append(Spacer(1, 12))
 
-    # ========================================================
-    # CREATE PDF
-    # ========================================================
-
     doc.build(story)
-
     buffer.seek(0)
-
     return buffer.getvalue()
 
-
-# ============================================================
-# RENDER PERSISTED BATCH RESULTS
-# ============================================================
-
 def render_batch_results(batch_results_data):
-
+    """Render polished batch summary, compact results table, and detailed reasoning."""
     if not batch_results_data:
         return
 
     results_df = pd.DataFrame(batch_results_data)
-
     if results_df.empty:
         return
 
     total_rows = len(results_df)
+    successful_results = results_df[results_df["Status"] == "Success"]
+    failed_results = results_df[results_df["Status"].astype(str).str.startswith("Failed")]
+    skipped_results = results_df[results_df["Status"].astype(str).str.startswith("Skipped")]
+    invalid_results = results_df[results_df["Status"].astype(str).str.startswith("Invalid")]
 
-    successful_results = results_df[
-        results_df["Status"] == "Success"
-    ]
-
-    failed_results = results_df[
-        results_df["Status"].astype(str).str.startswith("Failed")
-    ]
-
-    skipped_results = results_df[
-        results_df["Status"].astype(str).str.startswith("Skipped")
-    ]
-
-    invalid_results = results_df[
-        results_df["Status"].astype(str).str.startswith("Invalid")
-    ]
-
-    # =================================================
-    # BATCH RESULTS
-    # =================================================
-
+    # =========================================================
+    # BATCH RESULTS HEADER
+    # =========================================================
     st.markdown(
-        '<div class="section-title">'
-        '📋 Batch Results'
-        '</div>',
+        '<div class="section-title">📋 Batch Results</div>',
         unsafe_allow_html=True,
     )
+    st.caption(
+        "A compact overview is shown below. Expand an individual record for the complete multi-agent reasoning."
+    )
 
-    display_columns = [
-        "Response ID",
-        "Question",
-        "Relevance",
-        "Accuracy",
-        "Completeness",
-        "Hallucination",
-        "Overall Score",
-        "Verdict",
-        "Risk Level",
-        "Status",
-    ]
+    # =========================================================
+    # BATCH SUMMARY CARDS
+    # =========================================================
+    st.markdown('<div class="batch-summary-title">📊 Batch Summary</div>', unsafe_allow_html=True)
+    s1, s2, s3, s4 = st.columns(4)
+    pass_count = int((successful_results["Verdict"] == "Pass").sum()) if not successful_results.empty else 0
+    pass_rate = (pass_count / len(successful_results) * 100) if len(successful_results) else 0
+
+    s1.metric("Total Records", total_rows)
+    s2.metric("Successful", len(successful_results))
+    s3.metric("Failed / Issues", len(failed_results) + len(skipped_results) + len(invalid_results))
+    s4.metric("Pass Rate", f"{pass_rate:.1f}%")
+
+    # =========================================================
+    # COMPACT RESULTS TABLE
+    # =========================================================
+    st.markdown('<div class="batch-summary-title">📋 Evaluation Overview</div>', unsafe_allow_html=True)
+
+    table_rows = []
+    for _, record in results_df.iterrows():
+        status = str(record.get("Status", "Unknown"))
+        verdict = json_value(record.get("Verdict Result", {}))
+        verdict_name = str(verdict.get("verdict", record.get("Verdict", "Unknown")))
+        score = float(record.get("Overall Score", 0) or 0)
+        question = str(record.get("Question", ""))
+        if len(question) > 70:
+            question = question[:67] + "..."
+        table_rows.append({
+            "ID": record.get("Response ID", ""),
+            "Question": question,
+            "Score": f"{score:.1f}/5" if status == "Success" else "—",
+            "Verdict": verdict_name if status == "Success" else status.replace("Invalid Input", "Invalid"),
+            "Risk": str(record.get("Risk Level", "Unknown") or "Unknown"),
+            "Status": status,
+        })
 
     st.dataframe(
-        results_df[
-            display_columns
-        ],
+        pd.DataFrame(table_rows),
         use_container_width=True,
         hide_index=True,
+        column_config={
+            "ID": st.column_config.NumberColumn("ID", width="small"),
+            "Question": st.column_config.TextColumn("Question", width="large"),
+            "Score": st.column_config.TextColumn("Score", width="small"),
+            "Verdict": st.column_config.TextColumn("Verdict", width="medium"),
+            "Risk": st.column_config.TextColumn("Risk", width="small"),
+            "Status": st.column_config.TextColumn("Status", width="medium"),
+        },
     )
 
-    # =================================================
-    # DOWNLOAD
-    # =================================================
+    # =========================================================
+    # DOWNLOADS
+    # =========================================================
+    download_col1, download_col2 = st.columns(2)
 
-    csv_data = (
-        results_df[
-            display_columns
-        ]
-        .to_csv(
-            index=False
+    display_columns = [
+        "Response ID", "Question", "Relevance", "Accuracy",
+        "Completeness", "Hallucination", "Overall Score",
+        "Verdict", "Risk Level", "Status",
+    ]
+
+    csv_data = results_df[display_columns].to_csv(index=False).encode("utf-8-sig")
+
+    with download_col1:
+        st.download_button(
+            label="📥 Download Results CSV",
+            data=csv_data,
+            file_name="batch_evaluation_results.csv",
+            mime="text/csv",
+            use_container_width=True,
         )
-        .encode("utf-8-sig")
-    )
 
-    st.download_button(
-        label="📥 Download Batch Results",
-        data=csv_data,
-        file_name=(
-            "batch_evaluation_results.csv"
-        ),
-        mime="text/csv",
-        use_container_width=True,
-    )
-    
-    pdf_data = generate_batch_pdf(results_df)
+    with download_col2:
+        pdf_data = generate_batch_pdf(results_df)
+        st.download_button(
+            label="📄 Download Detailed PDF",
+            data=pdf_data,
+            file_name="batch_evaluation_detailed_report.pdf",
+            mime="application/pdf",
+            key="batch_pdf_download",
+            type="primary",
+            use_container_width=True,
+        )
 
-    st.download_button(
-        label="📄 Download PDF Batch Report",
-        data=pdf_data,
-        file_name="batch_evaluation_report.pdf",
-        mime="application/pdf",
-        key="batch_pdf_download",
-        type="primary",
-        use_container_width=True,
-    )
-
-    # =================================================
-    # STATISTICS
-    # =================================================
-
-    st.markdown(
-        '<div class="section-title">'
-        '📈 Batch Statistics'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-
-    s1, s2, s3, s4, s5 = st.columns(5)
-
-    s1.metric(
-        "Total Records",
-        total_rows,
-    )
-
-    s2.metric(
-        "Successful",
-        len(successful_results),
-    )
-
-    s3.metric(
-        "Failed",
-        len(failed_results),
-    )
-
-    s4.metric(
-        "Skipped",
-        len(skipped_results),
-    )
-
-    s5.metric(
-        "Invalid Input",
-        len(invalid_results),
-    )
-
-    # =================================================
-    # SUCCESS STATISTICS
-    # =================================================
-
+    # =========================================================
+    # AVERAGE AGENT SCORES
+    # =========================================================
     if not successful_results.empty:
-
-        avg_relevance = (
-            successful_results[
-                "Relevance"
-            ].mean()
-        )
-
-        avg_accuracy = (
-            successful_results[
-                "Accuracy"
-            ].mean()
-        )
-
-        avg_completeness = (
-            successful_results[
-                "Completeness"
-            ].mean()
-        )
-
-        avg_hallucination = (
-            successful_results[
-                "Hallucination"
-            ].mean()
-        )
-
-        st.markdown(
-            "### Average Agent Scores"
-        )
-
+        st.markdown('<div class="batch-summary-title">📈 Average Agent Scores</div>', unsafe_allow_html=True)
         a1, a2, a3, a4 = st.columns(4)
+        a1.metric("Relevance", f"{successful_results['Relevance'].mean():.2f}/5")
+        a2.metric("Accuracy", f"{successful_results['Accuracy'].mean():.2f}/5")
+        a3.metric("Completeness", f"{successful_results['Completeness'].mean():.2f}/5")
+        a4.metric("Hallucination", f"{successful_results['Hallucination'].mean():.2f}/5")
 
-        a1.metric(
-            "Avg Relevance",
-            f"{avg_relevance:.2f}/5",
-        )
-
-        a2.metric(
-            "Avg Accuracy",
-            f"{avg_accuracy:.2f}/5",
-        )
-
-        a3.metric(
-            "Avg Completeness",
-            f"{avg_completeness:.2f}/5",
-        )
-
-        a4.metric(
-            "Avg Hallucination",
-            f"{avg_hallucination:.2f}/5",
-        )
-
-        st.markdown(
-            "### Verdict Distribution"
-        )
-
+        st.markdown('<div class="batch-summary-title">⚖️ Verdict Distribution</div>', unsafe_allow_html=True)
         v1, v2, v3, v4 = st.columns(4)
+        v1.metric("Pass", int((successful_results["Verdict"] == "Pass").sum()))
+        v2.metric("Needs Improvement", int((successful_results["Verdict"] == "Needs Improvement").sum()))
+        v3.metric("Fail", int((successful_results["Verdict"] == "Fail").sum()))
+        v4.metric("Hallucination Detected", int((successful_results["Hallucination"] < 5).sum()))
 
-        v1.metric(
-            "Pass",
-            int(
-                (
-                    successful_results[
-                        "Verdict"
-                    ]
-                    == "Pass"
-                ).sum()
-            ),
-        )
+    # =========================================================
+    # FAILED / SKIPPED / INVALID RECORDS
+    # =========================================================
+    if not failed_results.empty or not skipped_results.empty or not invalid_results.empty:
+        st.markdown("### ⚠️ Failed / Skipped / Invalid Records")
 
-        v2.metric(
-            "Needs Improvement",
-            int(
-                (
-                    successful_results[
-                        "Verdict"
-                    ]
-                    == "Needs Improvement"
-                ).sum()
-            ),
-        )
+        problem_mask = results_df["Status"].astype(str).str.startswith(("Failed", "Skipped", "Invalid"))
+        problem_df = results_df.loc[problem_mask, ["Response ID", "Question", "Status", "Error"]].copy()
 
-        v3.metric(
-            "Fail",
-            int(
-                (
-                    successful_results[
-                        "Verdict"
-                    ]
-                    == "Fail"
-                ).sum()
-            ),
-        )
+        for _, problem in problem_df.iterrows():
+            response_id = problem["Response ID"]
+            status = str(problem["Status"])
+            error = str(problem["Error"] or "No error details available.")
 
-        v4.metric(
-            "Hallucination Detected",
-            int(
-                (
-                    successful_results[
-                        "Hallucination"
-                    ]
-                    < 5
-                ).sum()
-            ),
-        )
+            with st.expander(f"❌ Record {response_id} • {status}"):
+                st.markdown("**Question**")
+                st.write(problem["Question"])
+                st.markdown("**Status**")
+                st.write(status)
+                st.markdown("**Error Details**")
+                st.error(error)
 
-    # =================================================
-    # DETAILED PER-RECORD ANALYSIS
-    # =================================================
-
-    st.markdown(
-        "### 🔎 Detailed Record Analysis"
-    )
-
+    # =========================================================
+    # DETAILED INDIVIDUAL ANALYSIS
+    # =========================================================
+    st.markdown("### 🔎 Detailed Individual Record Analysis")
     st.caption(
-        "Each successful record shows the question, AI response, "
-        "reference answer, four independent agent analyses, "
-        "and the final Verdict Agent reasoning."
+        "Each successful record is shown with the same detailed reasoning structure used in Single Evaluation."
     )
 
     for _, record in results_df.iterrows():
+        status = str(record.get("Status", "Unknown"))
+        response_id = record.get("Response ID", "Unknown")
+        question = record.get("Question", "")
+        ai_response = record.get("AI Response", "") or "No AI response available."
+        reference_answer = record.get("Reference Answer", "") or "Not provided"
 
-        response_id = record.get(
-            "Response ID",
-            "",
-        )
+        if status != "Success":
+            continue
 
-        status = str(
-            record.get(
-                "Status",
-                "Unknown",
-            )
-        )
+        verdict = json_value(record.get("Verdict Result", {}))
+        relevance = json_value(record.get("Relevance Result", {}))
+        accuracy = json_value(record.get("Accuracy Result", {}))
+        completeness = json_value(record.get("Completeness Result", {}))
+        hallucination = json_value(record.get("Hallucination Result", {}))
 
-        with st.expander(
-            f"Record {response_id} — {status}",
-            expanded=False,
-        ):
+        verdict_name = str(verdict.get("verdict", record.get("Verdict", "Unknown")))
+        score = float(record.get("Overall Score", 0) or 0)
+        risk = str(record.get("Risk Level", "Unknown") or "Unknown")
 
+        with st.expander(f"📄 Record {response_id} • {verdict_name} • {score:.1f}/5 • {risk} Risk"):
+            st.markdown("### 📌 Evaluation Input")
             st.markdown("**Question**")
-            st.write(
-                record.get(
-                    "Question",
-                    "",
-                )
-                or "Not available."
-            )
-
+            st.info(question)
             st.markdown("**AI Response**")
-            ai_response_value = record.get(
-                "AI Response",
-                "",
-            )
-
-            st.write(
-                ai_response_value
-                if ai_response_value
-                else "Not provided."
-            )
-
+            st.info(ai_response)
             st.markdown("**Reference Answer**")
-            reference_value = record.get(
-                "Reference Answer",
-                "",
+            st.info(reference_answer)
+
+            st.divider()
+            st.markdown("### ⚖️ Final Evaluation Verdict")
+            st.caption("The final verdict is generated from the combined results of all validation agents.")
+
+            m1, m2, m3 = st.columns(3)
+            m1.metric("System Verdict", verdict_name)
+            m2.metric("Weighted Score", f"{score:.1f} / 5.0")
+            m3.metric("Hallucination Risk", risk)
+
+            st.markdown("### 📝 Verdict Summary")
+            verdict_summary = (
+                verdict.get("summary") or verdict.get("explanation") or
+                verdict.get("reasoning") or verdict.get("verdict_explanation") or
+                verdict.get("analysis")
             )
+            if verdict_summary:
+                st.info(str(verdict_summary))
+            else:
+                parts = []
+                for label, agent in [("Accuracy", accuracy), ("Completeness", completeness),
+                                     ("Relevance", relevance), ("Hallucination", hallucination)]:
+                    if agent.get("reasoning"):
+                        parts.append(f"**{label}:** {agent['reasoning']}")
+                st.info(" ".join(parts) or "No verdict summary returned.")
 
-            st.write(
-                reference_value
-                if reference_value
-                else "No reference answer provided."
-            )
+            st.divider()
+            st.markdown("### 🧩 Agent Workspace")
+            st.caption("Four independent validation agents analyze the response before the Verdict Agent produces the final decision.")
 
-            if status != "Success":
-
-                st.warning(
-                    f"**Status:** {status}"
-                )
-
-                st.write(
-                    f"**Reason:** "
-                    f"{record.get('Error', '') or 'No error details provided.'}"
-                )
-
-                continue
-
-            relevance = json_value(
-                record.get(
-                    "Relevance Result",
-                    {},
-                )
-            )
-
-            accuracy = json_value(
-                record.get(
-                    "Accuracy Result",
-                    {},
-                )
-            )
-
-            completeness = json_value(
-                record.get(
-                    "Completeness Result",
-                    {},
-                )
-            )
-
-            hallucination = json_value(
-                record.get(
-                    "Hallucination Result",
-                    {},
-                )
-            )
-
-            verdict = json_value(
-                record.get(
-                    "Verdict Result",
-                    {},
-                )
-            )
-
-            detail_cols = st.columns(4)
-
-            agent_data = [
-                (
-                    detail_cols[0],
-                    "🎯 Relevance",
-                    relevance,
-                ),
-                (
-                    detail_cols[1],
-                    "✓ Accuracy",
-                    accuracy,
-                ),
-                (
-                    detail_cols[2],
-                    "◈ Completeness",
-                    completeness,
-                ),
-                (
-                    detail_cols[3],
-                    "⚠️ Hallucination",
-                    hallucination,
-                ),
-            ]
-
-            for col, name, data in agent_data:
-
+            cols = st.columns(4)
+            for col, title, agent in zip(
+                cols,
+                ["🎯 Relevance", "✓ Accuracy", "◈ Completeness", "⚠️ Hallucination"],
+                [relevance, accuracy, completeness, hallucination],
+            ):
                 with col:
+                    agent_score = float(agent.get("score", 0) or 0)
+                    st.markdown(f"#### {title}")
+                    st.caption("Independent validation agent")
+                    st.metric("Score", f"{agent_score:.1f} / 5.0")
+                    st.progress(max(0.0, min(1.0, agent_score / 5.0)))
+                    st.success("Good" if agent_score >= 4 else "Moderate" if agent_score >= 2.5 else "Low")
 
-                    score = float(
-                        data.get(
-                            "score",
-                            0,
-                        )
-                        or 0
-                    )
+            st.markdown("### 🔎 Agent Details")
 
-                    st.metric(
-                        name,
-                        f"{score:.1f}/5",
-                    )
+            with st.expander("🎯 Relevance Agent", expanded=True):
+                st.markdown("**Reasoning**")
+                st.write(relevance.get("reasoning", "No reasoning returned."))
 
-            st.markdown("**Agent Analysis**")
+            with st.expander("✓ Accuracy Agent", expanded=True):
+                st.markdown("**Reasoning**")
+                st.write(accuracy.get("reasoning", "No reasoning returned."))
+                evidence = accuracy.get("supporting_evidence", []) or []
+                if evidence:
+                    st.markdown("**Supporting Evidence**")
+                    for item in evidence:
+                        st.info(str(item))
+                else:
+                    st.caption("No supporting evidence returned.")
 
-            st.markdown(
-                "**🎯 Relevance Agent:** "
-                + str(
-                    relevance.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                )
+            with st.expander("◈ Completeness Agent", expanded=True):
+                st.markdown("**Reasoning**")
+                st.write(completeness.get("reasoning", "No reasoning returned."))
+                missing = completeness.get("missing_components", []) or []
+                if missing:
+                    st.markdown("**Missing Components**")
+                    for item in missing:
+                        st.warning(str(item))
+                else:
+                    st.success("No missing components identified.")
+
+            with st.expander("⚠️ Hallucination Detection Agent", expanded=True):
+                st.markdown("**Reasoning**")
+                st.write(hallucination.get("reasoning", "No reasoning returned."))
+                claims = hallucination.get("flagged_claims", []) or []
+                if claims:
+                    st.warning(f"{len(claims)} flagged claim(s) detected.")
+                    for i, claim in enumerate(claims, 1):
+                        if isinstance(claim, dict):
+                            claim_text = claim.get("claim", "Not available.")
+                            classification = claim.get("classification", "Flagged")
+                            reason = claim.get("reason", "No additional explanation returned.")
+                        else:
+                            claim_text = str(claim)
+                            classification = "Flagged"
+                            reason = "No additional explanation returned."
+                        st.markdown(f"**Flagged Claim #{i} — {classification}**")
+                        st.write(f"**Claim:** {claim_text}")
+                        st.write(f"**Reason:** {reason}")
+                else:
+                    st.success("No ungrounded or contradictory claims detected.")
+
+            st.divider()
+            st.markdown("### ⚖️ Verdict Agent Analysis")
+            verdict_reasoning = (
+                verdict.get("reasoning") or verdict.get("explanation") or
+                verdict.get("summary") or verdict.get("verdict_explanation") or
+                verdict.get("analysis")
             )
-
-            st.markdown(
-                "**✓ Accuracy Agent:** "
-                + str(
-                    accuracy.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                )
-            )
-
-            evidence = accuracy.get(
-                "supporting_evidence",
-                [],
-            ) or []
-
-            if evidence:
-                st.markdown("**Supporting Evidence**")
-                for item in evidence:
-                    st.info(str(item))
-
-            st.markdown(
-                "**◈ Completeness Agent:** "
-                + str(
-                    completeness.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                )
-            )
-
-            missing = completeness.get(
-                "missing_components",
-                [],
-            ) or []
-
-            if missing:
-                st.markdown("**Missing Components**")
-                for item in missing:
-                    st.warning(str(item))
-
-            st.markdown(
-                "**⚠️ Hallucination Detection Agent:** "
-                + str(
-                    hallucination.get(
-                        "reasoning",
-                        "No reasoning returned.",
-                    )
-                )
-            )
-
-            flagged = hallucination.get(
-                "flagged_claims",
-                [],
-            ) or []
-
-            if flagged:
-                st.markdown(
-                    f"**Flagged Claims:** {len(flagged)}"
-                )
-
-                for i, claim in enumerate(
-                    flagged,
-                    1,
-                ):
-
-                    if isinstance(
-                        claim,
-                        dict,
-                    ):
-                        claim_text = claim.get(
-                            "claim",
-                            "Not available.",
-                        )
-                        classification = claim.get(
-                            "classification",
-                            "Flagged",
-                        )
-                        reason = claim.get(
-                            "reason",
-                            "No additional explanation returned.",
-                        )
-                    else:
-                        claim_text = claim
-                        classification = "Flagged"
-                        reason = (
-                            "No additional explanation returned."
-                        )
-
-                    st.warning(
-                        f"**Claim #{i} — {classification}**\n\n"
-                        f"**Claim:** {claim_text}\n\n"
-                        f"**Reason:** {reason}"
-                    )
-            else:
-                st.success(
-                    "No ungrounded or contradictory claims detected."
-                )
-
-            verdict_text, verdict_name, overall_score = (
-                format_verdict_summary(verdict)
-            )
-
-            st.markdown("**⚖️ Verdict Agent**")
-
-            v1, v2, v3 = st.columns(3)
-
-            with v1:
-                st.metric(
-                    "System Verdict",
-                    verdict_name,
-                )
-
-            with v2:
-                st.metric(
-                    "Weighted Score",
-                    f"{overall_score:.1f}/5",
-                )
-
-            with v3:
-                risk_info = get_risk_level(
-                    hallucination
-                )
-                st.metric(
-                    "Hallucination Risk",
-                    f"{risk_info['icon']} "
-                    f"{risk_info['text']}",
-                )
-
-            st.info(
-                verdict_text
-                if verdict_text
-                else "No verdict analysis returned."
-            )
-
-    # =================================================
-    # PROBLEM RECORDS
-    # =================================================
-
-    if (
-        not failed_results.empty
-        or not skipped_results.empty
-        or not invalid_results.empty
-    ):
-
-        st.markdown(
-            "### ⚠️ Failed / Skipped / Invalid Records"
-        )
-
-        problem_mask = (
-            results_df[
-                "Status"
-            ]
-            .astype(str)
-            .str.startswith(
-                (
-                    "Failed",
-                    "Skipped",
-                    "Invalid",
-                )
-            )
-        )
-
-        problem_df = (
-            results_df.loc[
-                problem_mask,
-                [
-                    "Response ID",
-                    "Question",
-                    "Status",
-                    "Error",
-                ],
-            ].copy()
-        )
-
-        st.dataframe(
-            problem_df,
-            use_container_width=True,
-            hide_index=True,
-        )
-
-        # =================================================
-        # ERROR DETAILS
-        # =================================================
-
-        st.markdown(
-            "### 🔎 Error Details"
-        )
-
-        for _, problem in (
-            problem_df.iterrows()
-        ):
-
-            response_id = (
-                problem[
-                    "Response ID"
-                ]
-            )
-
-            status = str(
-                problem["Status"]
-            )
-
-            error = str(
-                problem["Error"]
-            )
-
-            # ------------------------------------------------
-            # QUOTA
-            # ------------------------------------------------
-
-            if (
-                "API Quota"
-                in status
-                or
-                "429"
-                in error
-                or
-                "quota"
-                in error.lower()
-                or
-                "resource_exhausted"
-                in error.lower()
-                or
-                "rate limit"
-                in error.lower()
-            ):
-
-                st.error(
-                    f"""
-    🔴 **Record {response_id} — API Quota / Rate Limit Error**
-
-    **Status:** {status}
-
-    **Error:**
-
-    {error}
-
-    **What this means:**
-
-    The API quota or rate limit was reached.
-    The remaining records were not evaluated to avoid
-    additional API requests.
-    """
-                )
-
-            # ------------------------------------------------
-            # 503
-            # ------------------------------------------------
-
-            elif (
-                "503"
-                in error
-                or
-                "service unavailable"
-                in error.lower()
-                or
-                "temporarily unavailable"
-                in error.lower()
-                or
-                "overloaded"
-                in error.lower()
-            ):
-
-                st.warning(
-                    f"""
-    🟠 **Record {response_id} — API Service Unavailable**
-
-    **Status:** {status}
-
-    **Error:**
-
-    {error}
-
-    **What this means:**
-
-    The model was temporarily unavailable or overloaded.
-    You can retry the batch later.
-    """
-                )
-
-            # ------------------------------------------------
-            # INVALID INPUT
-            # ------------------------------------------------
-
-            elif status.startswith(
-                "Invalid"
-            ):
-
-                st.warning(
-                    f"""
-    🟡 **Record {response_id} — Invalid Input**
-
-    **Status:** {status}
-
-    **Reason:**
-
-    {error}
-    """
-                )
-
-            # ------------------------------------------------
-            # SKIPPED
-            # ------------------------------------------------
-
-            elif status.startswith(
-                "Skipped"
-            ):
-
-                st.info(
-                    f"""
-    ⏭️ **Record {response_id} — Skipped**
-
-    **Status:** {status}
-
-    **Reason:**
-
-    {error}
-    """
-                )
-
-            # ------------------------------------------------
-            # OTHER API ERROR
-            # ------------------------------------------------
-
-            elif "API" in status:
-
-                st.error(
-                    f"""
-    🔴 **Record {response_id} — External API Error**
-
-    **Status:** {status}
-
-    **Error:**
-
-    {error}
-    """
-                )
-
-            # ------------------------------------------------
-            # NORMAL ERROR
-            # ------------------------------------------------
-
-            else:
-
-                st.error(
-                    f"""
-    ❌ **Record {response_id} — Evaluation Error**
-
-    **Status:** {status}
-
-    **Error:**
-
-    {error}
-    """
-                )
-
-
-    # ============================================================
-    # HISTORY
-    # ============================================================
+            st.info(str(verdict_reasoning or "No separate Verdict Agent reasoning was returned."))
 
 # ============================================================
 # DASHBOARD
@@ -3859,21 +3796,16 @@ if page == "Dashboard":
     # ========================================================
 
     st.markdown(
-        """
-        <h2 style="
-            color:#FFFFFF;
-            font-size:28px;
-            font-weight:700;
-            margin:0 0 8px 0;
-        ">
-            📈 Evaluation Scoring Dashboard
-        </h2>
-        <div style="
-            color:#AAB2C8;
-            font-size:14px;
-            margin-bottom:24px;
-        ">
-            Combined analysis of stored single and batch evaluation results.
+        f"""
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin:4px 0 22px 0;">
+            <div>
+                <div style="color:#FFFFFF;font-size:28px;font-weight:800;letter-spacing:-.4px;margin-bottom:7px;">📈 Evaluation Scoring Dashboard</div>
+                <div style="color:#AAB2C8;font-size:14px;">Combined analysis of stored single and batch evaluation results.</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(16,191,163,.28);background:rgba(16,191,163,.07);border-radius:999px;white-space:nowrap;margin-top:2px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#10BFA3;box-shadow:0 0 12px #10BFA3;display:inline-block;"></span>
+                <span style="color:#A7F3D0;font-size:11px;font-weight:700;">LIVE DATA</span>
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -3917,24 +3849,30 @@ if page == "Dashboard":
     ]
 
     with filter_col1:
+        st.markdown('<div style="color:#94A3B8;font-size:11px;font-weight:700;letter-spacing:.8px;margin:0 0 5px 2px;">VERDICT</div>', unsafe_allow_html=True)
         selected_verdict = st.selectbox(
             "Filter by Verdict",
             verdict_options,
             key="dashboard_verdict_filter",
+            label_visibility="collapsed",
         )
 
     with filter_col2:
+        st.markdown('<div style="color:#94A3B8;font-size:11px;font-weight:700;letter-spacing:.8px;margin:0 0 5px 2px;">EVALUATION BATCH</div>', unsafe_allow_html=True)
         selected_batch = st.selectbox(
             "Filter by Evaluation Batch",
             batch_options,
             key="dashboard_batch_filter",
+            label_visibility="collapsed",
         )
 
     with filter_col3:
+        st.markdown('<div style="color:#94A3B8;font-size:11px;font-weight:700;letter-spacing:.8px;margin:0 0 5px 2px;">OVERALL SCORE</div>', unsafe_allow_html=True)
         selected_score = st.selectbox(
             "Filter by Overall Score",
             score_options,
             key="dashboard_score_filter",
+            label_visibility="collapsed",
         )
 
     # ========================================================
@@ -4018,72 +3956,43 @@ if page == "Dashboard":
     # ========================================================
 
     card_data = [
-        (
-            "Total Evaluations",
-            total_evaluations,
-            "100%",
-            "#FFFFFF",
-        ),
-        (
-            "Pass",
-            pass_count,
-            f"{pct(pass_count, total_evaluations):.1f}%",
-            "#6366F1",
-        ),
-        (
-            "Needs Improvement",
-            needs_count,
-            f"{pct(needs_count, total_evaluations):.1f}%",
-            "#10BFA3",
-        ),
-        (
-            "Fail",
-            fail_count,
-            f"{pct(fail_count, total_evaluations):.1f}%",
-            "#F45B45",
-        ),
+        ("Total Evaluations", total_evaluations, "100%", "#FFFFFF", "All stored evaluations"),
+        ("Pass", pass_count, f"{pct(pass_count, total_evaluations):.1f}%", "#818CF8", "Passing responses"),
+        ("Needs Improvement", needs_count, f"{pct(needs_count, total_evaluations):.1f}%", "#2DD4BF", "Responses needing review"),
+        ("Fail", fail_count, f"{pct(fail_count, total_evaluations):.1f}%", "#FB6A56", "Responses requiring attention"),
     ]
 
     cols = st.columns(4)
 
-    for col, (
-        label,
-        value,
-        percentage,
-        value_color,
-    ) in zip(cols, card_data):
-
+    for index, (col, (label, value, percentage, value_color, subtext)) in enumerate(zip(cols, card_data)):
         with col:
-            st.markdown(
+            components.html(
                 f"""
-                <div style="
-                    background:linear-gradient(135deg,#151B32,#0D1222);
-                    border:1px solid #252D4A;
-                    border-radius:14px;
-                    padding:17px 12px;
-                    text-align:center;
-                    min-height:116px;
-                    box-shadow:0 4px 15px rgba(0,0,0,0.20);
-                ">
-                    <div style="
-                        color:#AAB2C8;
-                        font-size:13px;
-                        font-weight:500;
-                    ">{label}</div>
-                    <div style="
-                        color:{value_color};
-                        font-size:29px;
-                        font-weight:700;
-                        margin-top:5px;
-                    ">{value}</div>
-                    <div style="
-                        color:#C9D0E3;
-                        font-size:12px;
-                        margin-top:2px;
-                    ">{percentage}</div>
+                <style>
+                    .kpi-card{{position:relative;overflow:hidden;background:linear-gradient(145deg,#151B32 0%,#0D1222 72%);border:1px solid #252D4A;border-radius:16px;padding:18px 16px 15px;box-sizing:border-box;font-family:Arial,sans-serif;min-height:132px;animation:kpiIn .55s cubic-bezier(.22,1,.36,1) both;animation-delay:{index*.08:.2f}s;}}
+                    .kpi-card:before{{content:'';position:absolute;inset:-80px auto auto -50px;width:150px;height:150px;background:{value_color};opacity:.08;filter:blur(28px);border-radius:50%;}}
+                    .kpi-card:hover{{transform:translateY(-3px);border-color:{value_color}66;box-shadow:0 12px 30px rgba(0,0,0,.28),0 0 22px {value_color}12;}}
+                    .kpi-label{{position:relative;color:#AAB2C8;font-size:12px;font-weight:700;letter-spacing:.2px;}}
+                    .kpi-value{{position:relative;color:{value_color};font-size:31px;font-weight:800;line-height:1.1;margin-top:7px;}}
+                    .kpi-percent{{position:relative;color:#E2E8F0;font-size:12px;font-weight:700;margin-top:4px;}}
+                    .kpi-sub{{position:relative;color:#71809D;font-size:10px;margin-top:7px;}}
+                    .kpi-line{{position:absolute;left:0;bottom:0;height:2px;width:0;background:linear-gradient(90deg,{value_color},transparent);animation:kpiLine 1.2s ease forwards;animation-delay:{.35+index*.08:.2f}s;}}
+                    @keyframes kpiIn{{from{{opacity:0;transform:translateY(10px)}}to{{opacity:1;transform:translateY(0)}}}}
+                    @keyframes kpiLine{{from{{width:0}}to{{width:100%}}}}
+                </style>
+                <div class="kpi-card">
+                    <div class="kpi-label">{html.escape(label)}</div>
+                    <div class="kpi-value" id="kpiValue">0</div>
+                    <div class="kpi-percent">{percentage}</div>
+                    <div class="kpi-sub">{html.escape(subtext)}</div>
+                    <div class="kpi-line"></div>
                 </div>
-                """,
-                unsafe_allow_html=True,
+                <script>
+                    const target={int(value)},el=document.getElementById('kpiValue'),start=performance.now(),duration=850;
+                    function count(now){{const p=Math.min((now-start)/duration,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e);if(p<1)requestAnimationFrame(count);}}
+                    requestAnimationFrame(count);
+                </script>
+                """, height=140, scrolling=False
             )
 
     # ========================================================
@@ -4136,48 +4045,30 @@ if page == "Dashboard":
 
     score_cols = st.columns(4)
 
-    for col, (
-        label,
-        score,
-        color,
-    ) in zip(score_cols, dimension_data):
-
+    for index, (col, (label, score, color)) in enumerate(zip(score_cols, dimension_data)):
         with col:
-            st.markdown(
+            components.html(
                 f"""
-                <div style="
-                    background:#0D1222;
-                    border:1px solid #252D4A;
-                    border-radius:14px;
-                    padding:18px;
-                ">
-                    <div style="
-                        color:#AAB2C8;
-                        font-size:13px;
-                        font-weight:500;
-                    ">{label}</div>
-                    <div style="
-                        color:#FFFFFF;
-                        font-size:27px;
-                        font-weight:700;
-                        margin:5px 0 8px 0;
-                    ">{score:.2f} / 5</div>
-                    <div style="
-                        height:7px;
-                        background:#242B43;
-                        border-radius:10px;
-                        overflow:hidden;
-                    ">
-                        <div style="
-                            width:{max(0, min(score / 5 * 100, 100)):.1f}%;
-                            height:100%;
-                            background:{color};
-                            border-radius:10px;
-                        "></div>
-                    </div>
+                <style>
+                    .score-card {{ background:#0D1222; border:1px solid #252D4A; border-radius:14px; padding:18px; box-sizing:border-box; font-family:Arial,sans-serif; animation:scoreIn .55s ease both; animation-delay:{index*0.10:.2f}s; }}
+                    .score-label {{ color:#AAB2C8; font-size:13px; font-weight:500; }}
+                    .score-value {{ color:#FFFFFF; font-size:27px; font-weight:700; margin:5px 0 8px; }}
+                    .score-track {{ height:7px; background:#242B43; border-radius:10px; overflow:hidden; }}
+                    .score-fill {{ height:100%; width:0; background:{color}; border-radius:10px; animation:fillScore 1.25s cubic-bezier(.22,1,.36,1) forwards; animation-delay:{0.2+index*0.1:.2f}s; }}
+                    @keyframes fillScore {{ from {{ width:0%; }} to {{ width:{max(0,min(score/5*100,100)):.1f}%; }} }}
+                    @keyframes scoreIn {{ from {{ opacity:0; transform:translateY(10px); }} to {{ opacity:1; transform:translateY(0); }} }}
+                </style>
+                <div class="score-card">
+                    <div class="score-label">{label}</div>
+                    <div class="score-value" id="scoreValue">0.00 / 5</div>
+                    <div class="score-track"><div class="score-fill"></div></div>
                 </div>
-                """,
-                unsafe_allow_html=True,
+                <script>
+                const target={score:.2f}, el=document.getElementById('scoreValue'), start=performance.now(), duration=1000;
+                function tick(now){{const p=Math.min((now-start)/duration,1),e=1-Math.pow(1-p,3);el.textContent=(target*e).toFixed(2)+' / 5';if(p<1)requestAnimationFrame(tick);}}
+                requestAnimationFrame(tick);
+                </script>
+                """, height=112, scrolling=False
             )
 
     # ========================================================
@@ -4186,197 +4077,159 @@ if page == "Dashboard":
     # rendered by the browser instead of being treated as text.
     # ========================================================
 
-    def render_donut_chart(title, values):
+    def render_3d_pie_chart(title, values):
+        """Render a polished animated pseudo-3D pie chart with hover details."""
+        import math
 
-        values = [
-            (str(label), int(value))
-            for label, value in values
-            if int(value) > 0
-        ]
-
-        total = sum(
-            value for _, value in values
-        )
+        values = [(str(label), int(value)) for label, value in values if int(value) > 0]
+        total = sum(value for _, value in values)
 
         if total == 0:
-            components.html(
-                f"""
-                <div style=\"
-                    width:100%;
-                    height:390px;
-                    box-sizing:border-box;
-                    background:#0D1222;
-                    border:1px solid #252D4A;
-                    border-radius:14px;
-                    padding:20px;
-                    font-family:Arial,sans-serif;
-                    color:#FFFFFF;
-                \" >
-                    <div style=\"font-size:18px;font-weight:700;\">{title}</div>
-                    <div style=\"height:300px;display:flex;align-items:center;justify-content:center;color:#AAB2C8;\">
-                        No evaluation data available
-                    </div>
+            components.html(f"""
+                <div style="width:100%;height:350px;box-sizing:border-box;background:linear-gradient(145deg,#0E1426,#0A0F1E);border:1px solid #252D4A;border-radius:18px;padding:18px;font-family:Arial,sans-serif;color:#FFF;">
+                    <div style="font-size:18px;font-weight:800;">{html.escape(title)}</div>
+                    <div style="height:270px;display:flex;align-items:center;justify-content:center;color:#94A3B8;font-size:14px;">No evaluation data available</div>
                 </div>
-                """,
-                height=410,
-                scrolling=False,
-            )
+            """, height=370, scrolling=False)
             return
 
         palette = [
-            "#6366F1",
-            "#F45B45",
-            "#10BFA3",
-            "#F59E0B",
-            "#8B5CF6",
+            ("#6366F1", "#34358A", "#818CF8"),
+            ("#F45B45", "#963426", "#FB7185"),
+            ("#10BFA3", "#056B5D", "#2DD4BF"),
+            ("#F59E0B", "#8A5305", "#FBBF24"),
+            ("#8B5CF6", "#4B238F", "#A78BFA"),
         ]
+        cx, cy = 250, 116
+        rx, ry = 108, 70
+        depth = 20
+        extrusion_steps = 12
 
-        cx = 250
-        cy = 165
-        radius = 92
-        stroke_width = 38
-        circumference = 2 * 3.141592653589793 * radius
+        def polar(angle):
+            a = math.radians(angle)
+            return cx + rx * math.cos(a), cy + ry * math.sin(a)
 
-        svg_segments = []
-        legend_items = []
-        offset = 0.0
+        def sector_path(start_angle, end_angle, y_shift=0):
+            span = max(0.01, end_angle - start_angle)
+            large_arc = 1 if span > 180 else 0
+            sx, sy = polar(start_angle)
+            ex, ey = polar(end_angle)
+            return (f"M {cx:.2f} {cy+y_shift:.2f} L {sx:.2f} {sy+y_shift:.2f} "
+                    f"A {rx:.2f} {ry:.2f} 0 {large_arc} 1 {ex:.2f} {ey+y_shift:.2f} Z")
+
+        slices, legend_items = [], []
+        current_angle = -90.0
 
         for index, (label, value) in enumerate(values):
+            percentage = value / total
+            span = percentage * 360.0
+            gap_angle = min(1.6, span * 0.055)
+            start_angle = current_angle + gap_angle
+            end_angle = current_angle + span - gap_angle
+            if end_angle <= start_angle:
+                start_angle, end_angle = current_angle, current_angle + span
 
-            percentage = (value / total) * 100.0
-            color = palette[index % len(palette)]
-            dash = percentage / 100.0 * circumference
+            top_color, side_color, glow_color = palette[index % len(palette)]
+            gradient_id = f"pieGrad{index}"
+            delay = index * 0.13
+            mid = math.radians((start_angle + end_angle) / 2)
+            dx, dy = math.cos(mid) * 7, math.sin(mid) * 5
 
-            svg_segments.append(
-                f"""
-                <circle
-                    cx=\"{cx}\"
-                    cy=\"{cy}\"
-                    r=\"{radius}\"
-                    fill=\"none\"
-                    stroke=\"{color}\"
-                    stroke-width=\"{stroke_width}\"
-                    stroke-dasharray=\"{dash:.3f} {circumference:.3f}\"
-                    stroke-dashoffset=\"{-offset:.3f}\"
-                    transform=\"rotate(-90 {cx} {cy})\"
-                />
-                """
-            )
+            for layer in range(extrusion_steps, 0, -1):
+                y_shift = depth * layer / extrusion_steps
+                opacity = 0.34 + (extrusion_steps - layer) * 0.035
+                path = sector_path(start_angle, end_angle, y_shift)
+                slices.append(f"""<path d="{path}" fill="{side_color}" opacity="{opacity:.3f}" class="pie-side" style="animation-delay:{delay:.2f}s;"/>""")
 
-            legend_items.append(
-                f"""
-                <div style=\"
-                    display:flex;
-                    align-items:center;
-                    gap:7px;
-                    margin:5px 9px;
-                    color:#FFFFFF;
-                    font-size:13px;
-                    white-space:nowrap;
-                \">
-                    <span style=\"
-                        width:11px;
-                        height:11px;
-                        min-width:11px;
-                        border-radius:2px;
-                        background:{color};
-                        display:inline-block;
-                    \"></span>
-                    <span>{label}</span>
-                    <span style=\"color:#C9D0E3;\">
-                        {percentage:.1f}%
-                    </span>
-                </div>
-                """
-            )
+            path = sector_path(start_angle, end_angle)
+            safe_label = html.escape(label, quote=True)
+            percent_text = f"{percentage*100:.1f}%"
+            slices.append(f"""<g class="pie-piece" data-label="{safe_label}" data-value="{value}" data-percent="{percent_text}" data-dx="{dx:.2f}" data-dy="{dy:.2f}">
+                <path d="{path}" fill="url(#{gradient_id})" class="pie-slice" style="animation-delay:{delay:.2f}s;"/>
+                <path d="{path}" fill="none" stroke="#FFFFFF" stroke-opacity=".17" stroke-width="1.2" class="pie-edge" style="animation-delay:{delay:.2f}s;"/>
+                <path d="{path}" fill="#FFFFFF" opacity=".001" class="pie-hit"/>
+            </g>""")
 
-            offset += dash
+            legend_items.append(f"""<div class="legend-item" data-index="{index}" style="--legend-color:{top_color};--legend-glow:{glow_color};">
+                <span class="legend-dot"></span><span class="legend-label">{html.escape(label)}</span>
+                <span class="legend-value">{value}</span><span class="legend-percent">{percent_text}</span>
+            </div>""")
+            current_angle += span
 
-        svg = "".join(svg_segments)
-        legend = "".join(legend_items)
-
-        components.html(
-            f"""
-            <div style=\"
-                width:100%;
-                height:390px;
-                box-sizing:border-box;
-                background:#0D1222;
-                border:1px solid #252D4A;
-                border-radius:14px;
-                padding:14px 18px 10px 18px;
-                font-family:Arial,sans-serif;
-                color:#FFFFFF;
-            \">
-                <div style=\"
-                    color:#FFFFFF;
-                    font-size:18px;
-                    font-weight:700;
-                    margin-bottom:2px;
-                \">
-                    {title}
-                </div>
-
-                <svg
-                    width=\"100%\"
-                    height=\"285\"
-                    viewBox=\"0 0 500 285\"
-                    xmlns=\"http://www.w3.org/2000/svg\"
-                >
-                    <g>
-                        <circle
-                            cx=\"{cx}\"
-                            cy=\"{cy}\"
-                            r=\"{radius}\"
-                            fill=\"none\"
-                            stroke=\"#252D4A\"
-                            stroke-width=\"{stroke_width}\"
-                        />
-                        {svg}
-                    </g>
-
-                    <circle
-                        cx=\"{cx}\"
-                        cy=\"{cy}\"
-                        r=\"70\"
-                        fill=\"#0D1222\"
-                    />
-
-                    <text
-                        x=\"{cx}\"
-                        y=\"160\"
-                        text-anchor=\"middle\"
-                        fill=\"#FFFFFF\"
-                        font-size=\"27\"
-                        font-weight=\"700\"
-                    >{total}</text>
-
-                    <text
-                        x=\"{cx}\"
-                        y=\"182\"
-                        text-anchor=\"middle\"
-                        fill=\"#AAB2C8\"
-                        font-size=\"11\"
-                    >Evaluations</text>
-                </svg>
-
-                <div style=\"
-                    display:flex;
-                    flex-wrap:wrap;
-                    justify-content:center;
-                    align-items:center;
-                    margin-top:-2px;
-                \">
-                    {legend}
-                </div>
-            </div>
-            """,
-            height=410,
-            scrolling=False,
+        gradients = ''.join(
+            f"""<linearGradient id="pieGrad{i}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="{palette[i % len(palette)][2]}"/>
+                <stop offset="48%" stop-color="{palette[i % len(palette)][0]}"/>
+                <stop offset="100%" stop-color="{palette[i % len(palette)][1]}"/>
+            </linearGradient>"""
+            for i in range(len(values))
         )
 
+        components.html(f"""
+            <div class="pie-card">
+                <style>
+                    * {{ box-sizing:border-box; }}
+                    .pie-card {{ width:100%;height:350px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 25%,rgba(99,102,241,.10),transparent 35%),linear-gradient(145deg,#10172B 0%,#0B1020 58%,#090E1A 100%);border:1px solid rgba(71,85,125,.55);border-radius:18px;padding:15px 16px 11px;font-family:Arial,sans-serif;color:#F8FAFC;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 12px 30px rgba(0,0,0,.16); }}
+                    .pie-card::before {{ content:"";position:absolute;width:180px;height:180px;border-radius:50%;left:50%;top:42px;transform:translateX(-50%);background:radial-gradient(circle,rgba(99,102,241,.10),transparent 68%);filter:blur(8px);pointer-events:none; }}
+                    .pie-title {{ position:relative;z-index:3;font-size:18px;font-weight:800;letter-spacing:-.01em;margin:0 0 1px 2px; }}
+                    .pie-subtitle {{ position:relative;z-index:3;color:#64748B;font-size:10px;margin-left:2px;margin-top:2px; }}
+                    .pie-svg {{ display:block;width:100%;height:214px;margin-top:-2px;overflow:visible; }}
+                    .pie-stage {{ transform-box:fill-box;transform-origin:center;animation:stageFloat 5s ease-in-out infinite; }}
+                    .pie-slice {{ transform-box:fill-box;transform-origin:250px 116px;animation:pieReveal .9s cubic-bezier(.22,1,.36,1) both;transition:filter .2s ease; }}
+                    .pie-side {{ transform-box:fill-box;transform-origin:250px 116px;animation:depthReveal .75s cubic-bezier(.22,1,.36,1) both; }}
+                    .pie-edge {{ animation:edgeReveal 1.05s ease both; }}
+                    .pie-piece {{ transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .22s ease;transform-box:fill-box;transform-origin:center; }}
+                    .pie-piece:hover {{ filter:drop-shadow(0 7px 8px rgba(0,0,0,.35)); }}
+                    .pie-piece:hover .pie-slice {{ filter:brightness(1.12) saturate(1.08); }}
+                    .pie-hit {{ cursor:pointer; }}
+                    .pie-total {{ pointer-events:none;font-weight:800;font-size:21px;fill:#F8FAFC; }}
+                    .pie-total-label {{ pointer-events:none;font-size:9px;fill:#94A3B8;letter-spacing:.08em; }}
+                    .legend {{ position:relative;z-index:4;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 7px;margin-top:-3px; }}
+                    .legend-item {{ display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid rgba(71,85,125,.32);border-radius:999px;background:rgba(15,23,42,.48);color:#CBD5E1;font-size:10px;white-space:nowrap;transition:all .18s ease;cursor:pointer; }}
+                    .legend-item:hover,.legend-item.active {{ border-color:var(--legend-color);background:rgba(30,41,70,.72);transform:translateY(-1px);box-shadow:0 5px 16px rgba(0,0,0,.20); }}
+                    .legend-dot {{ width:7px;height:7px;border-radius:50%;background:var(--legend-color);box-shadow:0 0 7px var(--legend-glow);flex:0 0 7px; }}
+                    .legend-label {{ color:#E2E8F0; }} .legend-value {{ color:#94A3B8;font-weight:700; }} .legend-percent {{ color:#64748B; }}
+                    .pie-tooltip {{ position:fixed;display:none;z-index:99999;pointer-events:none;min-width:158px;padding:11px 13px;border-radius:11px;background:rgba(7,11,23,.97);border:1px solid rgba(129,140,248,.65);box-shadow:0 14px 35px rgba(0,0,0,.48),0 0 18px rgba(99,102,241,.10);color:#F8FAFC;font:12px/1.5 Arial,sans-serif;backdrop-filter:blur(8px); }}
+                    .tip-head {{ font-size:13px;font-weight:800;margin-bottom:4px;color:#FFFFFF; }} .tip-row {{ display:flex;justify-content:space-between;gap:18px;color:#CBD5E1; }} .tip-value {{ color:#FFFFFF;font-weight:800; }}
+                    @keyframes pieReveal {{ 0% {{ opacity:0;transform:translateY(10px) scale(.72) rotateX(22deg); }} 62% {{ opacity:1;transform:translateY(-2px) scale(1.045) rotateX(0deg); }} 100% {{ opacity:1;transform:translateY(0) scale(1) rotateX(0deg); }} }}
+                    @keyframes depthReveal {{ 0% {{ opacity:0;transform:translateY(-10px); }} 100% {{ opacity:1;transform:translateY(0); }} }}
+                    @keyframes edgeReveal {{ from {{ opacity:0; }} to {{ opacity:1; }} }}
+                    @keyframes stageFloat {{ 0%,100% {{ transform:translateY(0) rotateX(0deg); }} 50% {{ transform:translateY(-2px) rotateX(.8deg); }} }}
+                    @media (prefers-reduced-motion:reduce) {{ *,*::before,*::after {{ animation-duration:.01ms !important;transition:none !important; }} }}
+                </style>
+                <div class="pie-title">{html.escape(title)}</div>
+                <div class="pie-subtitle">Hover a slice for evaluation details</div>
+                <svg class="pie-svg" viewBox="0 0 500 214" xmlns="http://www.w3.org/2000/svg">
+                    <defs>{gradients}<radialGradient id="pieCenterGlow"><stop offset="0%" stop-color="#1E293B" stop-opacity=".92"/><stop offset="100%" stop-color="#0B1020" stop-opacity=".98"/></radialGradient></defs>
+                    <g class="pie-stage">
+                        <ellipse cx="250" cy="143" rx="122" ry="25" fill="#000000" opacity=".34"/>
+                        {''.join(slices)}
+                        <ellipse cx="250" cy="116" rx="35" ry="22" fill="url(#pieCenterGlow)" opacity=".96"/>
+                        <text x="250" y="113" text-anchor="middle" class="pie-total">{total}</text>
+                        <text x="250" y="127" text-anchor="middle" class="pie-total-label">EVALUATIONS</text>
+                    </g>
+                </svg>
+                <div class="legend">{''.join(legend_items)}</div>
+                <div id="pieTooltip" class="pie-tooltip"></div>
+                <script>
+                (() => {{
+                    const card=document.currentScript.closest('.pie-card');
+                    const tip=card.querySelector('#pieTooltip');
+                    const pieces=[...card.querySelectorAll('.pie-piece')];
+                    const legends=[...card.querySelectorAll('.legend-item')];
+                    function moveTip(e) {{ const r=card.getBoundingClientRect(); const x=e.clientX-r.left,y=e.clientY-r.top; tip.style.left=Math.min(x+14,card.clientWidth-185)+'px';tip.style.top=Math.max(8,y-18)+'px'; }}
+                    function show(piece,e) {{ tip.innerHTML='<div class="tip-head">'+piece.dataset.label+'</div><div class="tip-row"><span>Evaluations</span><span class="tip-value">'+piece.dataset.value+'</span></div><div class="tip-row"><span>Share</span><span class="tip-value">'+piece.dataset.percent+'</span></div>';tip.style.display='block';moveTip(e); }}
+                    function activate(piece) {{ const i=pieces.indexOf(piece);piece.style.transform=`translate(${{piece.dataset.dx}}px,${{piece.dataset.dy}}px) scale(1.018)`;if(legends[i]) legends[i].classList.add('active'); }}
+                    function deactivate(piece) {{ const i=pieces.indexOf(piece);piece.style.transform='';if(legends[i]) legends[i].classList.remove('active'); }}
+                    pieces.forEach(piece=>{{const hit=piece.querySelector('.pie-hit');hit.addEventListener('mouseenter',e=>{{activate(piece);show(piece,e);}});hit.addEventListener('mousemove',moveTip);hit.addEventListener('mouseleave',()=>{{deactivate(piece);tip.style.display='none';}});}});
+                    legends.forEach((legend,i)=>{{legend.addEventListener('mouseenter',()=>{{if(pieces[i])activate(pieces[i]);}});legend.addEventListener('mouseleave',()=>{{if(pieces[i])deactivate(pieces[i]);}});}});
+                }})();
+                </script>
+            </div>
+        """, height=370, scrolling=False)
+
     # ========================================================
-    # DISTRIBUTION DONUTS
+    # DISTRIBUTION 3D PIE CHARTS
     # ========================================================
 
     st.markdown(
@@ -4440,7 +4293,7 @@ if page == "Dashboard":
     col1, col2 = st.columns(2)
 
     with col1:
-        render_donut_chart(
+        render_3d_pie_chart(
             "Verdict Distribution",
             [
                 ("Pass", pass_count),
@@ -4453,7 +4306,7 @@ if page == "Dashboard":
         )
 
     with col2:
-        render_donut_chart(
+        render_3d_pie_chart(
             "Hallucination Status",
             [
                 (
@@ -4475,7 +4328,7 @@ if page == "Dashboard":
     col3, col4 = st.columns(2)
 
     with col3:
-        render_donut_chart(
+        render_3d_pie_chart(
             "Score Distribution",
             [
                 ("0 – 1.99", score_0_1),
@@ -4485,13 +4338,81 @@ if page == "Dashboard":
         )
 
     with col4:
-        render_donut_chart(
+        render_3d_pie_chart(
             "Completeness Status",
             [
                 ("Complete", complete_count),
                 ("Incomplete", incomplete_count),
             ],
         )
+
+    # ========================================================
+    # KEY INSIGHTS
+    # ========================================================
+
+    if filtered_records:
+        insight_scores = {
+            "Relevance": average_score("relevance"),
+            "Accuracy": average_score("accuracy"),
+            "Hallucination Detection": average_score("hallucination"),
+            "Completeness": average_score("completeness"),
+        }
+        strongest_dimension = max(insight_scores, key=insight_scores.get)
+        weakest_dimension = min(insight_scores, key=insight_scores.get)
+        # Stored risk values are "High", "Medium", and "Low".
+        # Normalize both formats ("High" and "High Risk") so the
+        # dashboard counts remain correct for old and new records.
+        def normalize_risk_level(value):
+            risk = str(value or "").strip().lower()
+            risk = risk.replace(" risk", "")
+            return risk
+
+        high_risk_count = sum(
+            1 for x in filtered_records
+            if normalize_risk_level(x.get("risk_level")) == "high"
+        )
+        medium_risk_count = sum(
+            1 for x in filtered_records
+            if normalize_risk_level(x.get("risk_level")) == "medium"
+        )
+        low_risk_count = sum(
+            1 for x in filtered_records
+            if normalize_risk_level(x.get("risk_level")) == "low"
+        )
+        unknown_risk_count = max(
+            0,
+            len(filtered_records)
+            - high_risk_count
+            - medium_risk_count
+            - low_risk_count,
+        )
+        pass_rate = pct(pass_count, total_evaluations) if total_evaluations else 0
+
+        st.markdown(
+            """
+            <div style="margin:28px 0 14px 0;color:#FFFFFF;font-size:20px;font-weight:800;">💡 Key Insights</div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        insight_html = f"""
+        <style>
+            .insight-grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}}
+            .insight{{background:linear-gradient(145deg,rgba(21,27,50,.92),rgba(13,18,34,.92));border:1px solid #252D4A;border-radius:14px;padding:14px 15px;min-height:92px;box-sizing:border-box;transition:.2s ease;}}
+            .insight:hover{{transform:translateY(-2px);border-color:rgba(129,140,248,.45);box-shadow:0 10px 24px rgba(0,0,0,.22);}}
+            .insight-k{{color:#71809D;font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;margin-bottom:7px;}}
+            .insight-v{{color:#F8FAFC;font-size:17px;font-weight:800;}}
+            .insight-s{{color:#94A3B8;font-size:11px;margin-top:5px;}}
+            @media(max-width:900px){{.insight-grid{{grid-template-columns:repeat(2,1fr);}}}}
+        </style>
+        <div class="insight-grid">
+            <div class="insight"><div class="insight-k">Strongest Dimension</div><div class="insight-v">{html.escape(strongest_dimension)}</div><div class="insight-s">{insight_scores[strongest_dimension]:.2f} / 5 average</div></div>
+            <div class="insight"><div class="insight-k">Needs Attention</div><div class="insight-v">{html.escape(weakest_dimension)}</div><div class="insight-s">{insight_scores[weakest_dimension]:.2f} / 5 average</div></div>
+            <div class="insight"><div class="insight-k">Pass Rate</div><div class="insight-v">{pass_rate:.1f}%</div><div class="insight-s">{pass_count} of {total_evaluations} evaluations</div></div>
+            <div class="insight"><div class="insight-k">Risk Watch</div><div class="insight-v">🔴 {high_risk_count} High · 🟠 {medium_risk_count} Medium · 🟢 {low_risk_count} Low</div><div class="insight-s">Across {len(filtered_records)} evaluations in the current filtered view{f" · {unknown_risk_count} unknown" if unknown_risk_count else ""}</div></div>
+        </div>
+        """
+        components.html(insight_html, height=125, scrolling=False)
 
     # ========================================================
     # HALLUCINATION + COMPLETENESS STATISTICS
@@ -4705,9 +4626,42 @@ if page == "Dashboard":
             "**Average Dimension Scores Across Batches**"
         )
 
-        st.line_chart(
-            trend_df,
-            use_container_width=True,
+        chart_rows = []
+        for _, row in batch_df.iterrows():
+            chart_rows.append({
+                "label": str(row["Batch"]),
+                "relevance": float(row["Avg Relevance"]),
+                "accuracy": float(row["Avg Accuracy"]),
+                "hallucination": float(row["Avg Hallucination"]),
+                "completeness": float(row["Avg Completeness"]),
+            })
+        chart_json = json.dumps(chart_rows)
+        components.html(
+            f"""
+            <style>@keyframes drawLine {{ to {{ stroke-dashoffset:0; }} }} @keyframes pointIn {{ from {{ opacity:0; }} to {{ opacity:1; }} }} .trend-tooltip {{ position:fixed; display:none; z-index:9999; pointer-events:none; min-width:170px; padding:10px 12px; background:rgba(10,15,30,.97); border:1px solid rgba(99,102,241,.55); border-radius:9px; box-shadow:0 10px 28px rgba(0,0,0,.45); color:#F8FAFC; font:12px/1.5 Arial,sans-serif; }}</style>
+            <div style="background:#0D1222;border:1px solid #252D4A;border-radius:14px;padding:16px;font-family:Arial,sans-serif;">
+              <svg id="trendSvg" viewBox="0 0 900 300" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"></svg>
+              <div style="display:flex;gap:18px;justify-content:center;flex-wrap:wrap;color:#CBD5E1;font-size:12px;"><span>● Relevance</span><span>● Accuracy</span><span>● Hallucination</span><span>● Completeness</span></div>
+            </div>
+            <script>
+            const rows={chart_json},svg=document.getElementById('trendSvg'),W=900,H=300,L=55,R=20,T=18,B=42,iw=W-L-R,ih=H-T-B;
+            const xx=i=>L+(rows.length<2?iw/2:i/(rows.length-1)*iw), yy=v=>T+(5-v)/5*ih;
+            let s=''; for(let g=0;g<=5;g++){{let y=yy(g);s+=`<line x1="${{L}}" y1="${{y}}" x2="${{W-R}}" y2="${{y}}" stroke="#252D4A"/><text x="${{L-10}}" y="${{y+4}}" text-anchor="end" fill="#94A3B8" font-size="11">${{g}}</text>`;}}
+            const series=[['relevance','#6366F1'],['accuracy','#10BFA3'],['hallucination','#F59E0B'],['completeness','#8B5CF6']];
+            series.forEach(([k,c],si)=>{{let pts=rows.map((r,i)=>`${{xx(i)}},${{yy(r[k])}}`).join(' ');s+=`<polyline points="${{pts}}" fill="none" stroke="${{c}}" stroke-width="3" stroke-linecap="round" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000" style="animation:drawLine 1.4s ease forwards;animation-delay:${{si*.12}}s"/>`;rows.forEach((r,i)=>s+=`<circle cx="${{xx(i)}}" cy="${{yy(r[k])}}" r="4" fill="${{c}}" style="animation:pointIn .5s ease both;animation-delay:${{.7+si*.12+i*.05}}s"/>`);}});
+            rows.forEach((r,i)=>s+=`<rect x="${{xx(i)-14}}" y="${{T}}" width="28" height="${{ih}}" fill="#FFFFFF" opacity="0" class="trend-hit" data-label="${{r.label}}" data-relevance="${{r.relevance.toFixed(2)}}" data-accuracy="${{r.accuracy.toFixed(2)}}" data-hallucination="${{r.hallucination.toFixed(2)}}" data-completeness="${{r.completeness.toFixed(2)}}"/>`);
+            rows.forEach((r,i)=>s+=`<text x="${{xx(i)}}" y="${{H-14}}" text-anchor="middle" fill="#94A3B8" font-size="11">${{r.label}}</text>`); svg.innerHTML=s;
+            const tip=document.createElement('div'); tip.className='trend-tooltip'; tip.id='trendTooltip'; document.body.appendChild(tip);
+            document.querySelectorAll('.trend-hit').forEach(el=>{{
+              el.addEventListener('mouseenter',e=>{{
+                tip.innerHTML='<b>'+el.dataset.label+'</b><br>Relevance: <b>'+el.dataset.relevance+'</b> / 5<br>Accuracy: <b>'+el.dataset.accuracy+'</b> / 5<br>Hallucination: <b>'+el.dataset.hallucination+'</b> / 5<br>Completeness: <b>'+el.dataset.completeness+'</b> / 5';
+                tip.style.display='block'; tip.style.left=Math.min(e.clientX+14,window.innerWidth-245)+'px'; tip.style.top=Math.max(8,e.clientY-20)+'px';
+              }});
+              el.addEventListener('mousemove',e=>{{ tip.style.left=Math.min(e.clientX+14,window.innerWidth-245)+'px'; tip.style.top=Math.max(8,e.clientY-20)+'px'; }});
+              el.addEventListener('mouseleave',()=>{{tip.style.display='none';}});
+            }});
+            </script>
+            """, height=350, scrolling=False
         )
 
         st.markdown(
@@ -5110,170 +5064,193 @@ elif page == "Single Evaluation":
     )
 
     # ========================================================
-    # LLM PROVIDER
+    # SINGLE EVALUATION UI
     # ========================================================
+
+    st.markdown(
+        """
+        <div class="ui-section-title">⚙️ Evaluation Provider</div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     llm_provider = st.selectbox(
         "LLM Provider",
-        [
-            "Gemini",
-            "Groq",
-            "Ollama",
-        ],
-        index=[
-            "Gemini",
-            "Groq",
-            "Ollama",
-        ].index(
+        ["Gemini", "Groq", "Ollama"],
+        index=["Gemini", "Groq", "Ollama"].index(
             st.session_state.single_llm_provider_data
         ),
         key="single_llm_provider",
     )
 
-    st.session_state.single_llm_provider_data = (
-        llm_provider
-    )
+    st.session_state.single_llm_provider_data = llm_provider
 
     if llm_provider == "Gemini":
-
-        st.caption(
-            "☁️ Using Gemini API"
-        )
+        st.caption("☁️ Using Gemini API")
     elif llm_provider == "Groq":
-
-        st.caption(
-            "⚡ Using Groq API"
-        )
+        st.caption("⚡ Using Groq API")
     else:
-
         st.caption(
             "🖥️ Using local Ollama model: "
             "qwen3:4b-instruct-2507-q4_K_M"
         )
 
-    set_llm_provider(
-        llm_provider.lower()
-    )
+    set_llm_provider(llm_provider.lower())
 
     # ========================================================
-    # PIPELINE
+    # VALIDATION PIPELINE
     # ========================================================
+
+    st.markdown(
+        """
+        <div class="ui-section-title pipeline-title">🧠 Validation Pipeline</div>
+        <div class="ui-section-subtitle">
+            Each stage independently analyzes the AI response before producing the final weighted verdict.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     pipeline = [
-        "📝 AI Response",
-        "🎯 Relevance",
-        "✓ Accuracy",
-        "◈ Completeness",
-        "⚠ Hallucination",
-        "⚖ Verdict",
+        ("📝", "AI Response"),
+        ("🎯", "Relevance"),
+        ("✓", "Accuracy"),
+        ("◈", "Completeness"),
+        ("⚠", "Hallucination"),
+        ("⚖", "Verdict"),
     ]
 
-    cols = st.columns(
-        len(pipeline)
+    pipeline_html = '<div class="validation-pipeline">'
+
+    for i, (icon, title) in enumerate(pipeline):
+        pipeline_html += f"""
+            <div class="pipeline-item">
+                <div class="pipeline-card">
+                    <div class="pipeline-icon">{icon}</div>
+                    <div class="pipeline-label">{html.escape(title)}</div>
+                </div>
+            </div>
+        """
+        if i < len(pipeline) - 1:
+            pipeline_html += '<div class="pipeline-arrow">→</div>'
+
+    pipeline_html += "</div>"
+
+    st.markdown(pipeline_html, unsafe_allow_html=True)
+
+    # ========================================================
+    # EVALUATION INPUT
+    # ========================================================
+
+    st.markdown(
+        """
+        <div class="ui-section-title input-title">📝 Evaluation Input</div>
+        <div class="ui-section-subtitle">
+            Enter the question and the AI-generated response you want the validation agents to evaluate.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
-    for i, (
-        col,
-        step,
-    ) in enumerate(
-        zip(
-            cols,
-            pipeline,
-        )
-    ):
-
-        with col:
-
-            st.markdown(
-                f"**{step}**"
-            )
-
-            if i < len(pipeline) - 1:
-
-                st.caption("→")
-
-    # ========================================================
-    # INPUT
-    # ========================================================
-
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
-
+        st.markdown(
+            '<div class="field-heading">❓ Question</div>',
+            unsafe_allow_html=True,
+        )
         question = st.text_area(
             "Question",
-            placeholder=(
-                "Enter the prompt given to the AI..."
-            ),
-            height=150,
+            placeholder="Enter the question given to the AI...",
+            height=145,
             key="single_question_widget",
+            label_visibility="collapsed",
         )
 
     with col2:
-
+        st.markdown(
+            '<div class="field-heading">🤖 AI Generated Response</div>',
+            unsafe_allow_html=True,
+        )
         ai_response = st.text_area(
             "AI Generated Response",
-            placeholder=(
-                "Enter the generated output to evaluate..."
-            ),
-            height=150,
+            placeholder="Enter the AI-generated response to evaluate...",
+            height=145,
             key="single_ai_response_widget",
+            label_visibility="collapsed",
         )
 
-    # Save values immediately
     st.session_state.single_question_data = question
     st.session_state.single_ai_response_data = ai_response
 
     # ========================================================
-    # OPTIONAL REFERENCE
+    # REFERENCE INFORMATION
     # ========================================================
 
-    col3, col4 = st.columns(2)
+    st.markdown(
+        """
+        <div class="ui-section-title reference-title">📚 Reference Information</div>
+        <div class="ui-section-subtitle">
+            Optional ground-truth information used by the validation agents to assess factual accuracy and completeness.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    col3, col4 = st.columns(2, gap="large")
 
     with col3:
-
+        st.markdown(
+            '<div class="field-heading">📖 Reference Answer <span class="optional-label">Optional</span></div>',
+            unsafe_allow_html=True,
+        )
         reference_answer = st.text_area(
-            "Reference Answer (Optional)",
-            placeholder=(
-                "Enter expected ground truth "
-                "or golden answer..."
-            ),
+            "Reference Answer",
+            placeholder="Enter the expected or ground-truth answer...",
             height=120,
             key="single_reference_widget",
+            label_visibility="collapsed",
         )
-
-        st.session_state.single_reference_answer_data = (
-            reference_answer
-        )
+        st.session_state.single_reference_answer_data = reference_answer
 
     with col4:
-
+        st.markdown(
+            '<div class="field-heading">📄 Reference Document <span class="optional-label">Optional</span></div>',
+            unsafe_allow_html=True,
+        )
         reference_document = st.file_uploader(
-            "Reference Document (Optional)",
-            type=[
-                "txt",
-                "pdf",
-                "docx",
-            ],
+            "Reference Document",
+            type=["txt", "pdf", "docx"],
             key="single_document",
+            label_visibility="collapsed",
+        )
+        st.markdown(
+            '<div class="upload-help">TXT · PDF · DOCX &nbsp; • &nbsp; Maximum 200 MB</div>',
+            unsafe_allow_html=True,
         )
 
     if reference_document is not None:
-
-        st.session_state.single_reference_document_name = (
-            reference_document.name
-        )
-
-        st.session_state.single_reference_document_bytes = (
-            reference_document.getvalue()
-        )
-
+        st.session_state.single_reference_document_name = reference_document.name
+        st.session_state.single_reference_document_bytes = reference_document.getvalue()
     elif st.session_state.single_reference_document_name:
-
         st.caption(
             "Previously used document: "
             + st.session_state.single_reference_document_name
         )
+
+    # ========================================================
+    # READY STATUS
+    # ========================================================
+
+    st.markdown(
+        """
+        <div class="ready-status">
+            <span class="ready-dot"></span>
+            <span>Ready to evaluate</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     # ========================================================
     # RUN SINGLE EVALUATION
@@ -5471,20 +5448,30 @@ elif page == "Single Evaluation":
 elif page == "Batch Evaluation":
 
     st.markdown(
-        '<div class="section-title">'
-        '📊 Batch Evaluation'
-        '</div>',
+        '<div class="section-title">📊 Batch Evaluation</div>',
         unsafe_allow_html=True,
     )
 
     st.caption(
-        "Upload a CSV containing question and "
-        "ai_response columns."
+        "Upload a CSV dataset and evaluate multiple AI responses through the complete validation pipeline."
     )
 
     # ========================================================
-    # CSV UPLOAD
+    # DATASET UPLOAD
     # ========================================================
+
+    st.markdown(
+        '<div class="batch-section-title">📄 Dataset</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="batch-section-subtitle">'
+        'Required columns: <b>question</b> and <b>ai_response</b>. '
+        'Optional columns: <b>reference_answer</b> and <b>reference_document</b>.'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
     batch_file = st.file_uploader(
         "Upload CSV",
@@ -5494,130 +5481,111 @@ elif page == "Batch Evaluation":
 
     batch_df = None
 
-    # ========================================================
-    # RESTORE CSV
-    # ========================================================
-
     if batch_file is not None:
-
-        st.session_state.batch_csv_name = (
-            batch_file.name
-        )
-
-        st.session_state.batch_csv_bytes = (
-            batch_file.getvalue()
-        )
-
-        batch_df = pd.read_csv(
-            batch_file
-        )
-
-    elif (
-        st.session_state.batch_csv_bytes
-        is not None
-    ):
-
-        batch_df = pd.read_csv(
-            io.BytesIO(
-                st.session_state.batch_csv_bytes
-            )
-        )
+        st.session_state.batch_csv_name = batch_file.name
+        st.session_state.batch_csv_bytes = batch_file.getvalue()
+        batch_df = pd.read_csv(batch_file)
+    elif st.session_state.batch_csv_bytes is not None:
+        batch_df = pd.read_csv(io.BytesIO(st.session_state.batch_csv_bytes))
 
     # ========================================================
-    # LLM PROVIDER
+    # EVALUATION PROVIDER
     # ========================================================
+
+    st.markdown(
+        '<div class="batch-section-title">⚙️ Evaluation Provider</div>',
+        unsafe_allow_html=True,
+    )
 
     batch_llm_provider = st.selectbox(
         "LLM Provider",
-        [
-            "Gemini",
-            "Groq",
-            "Ollama",
-        ],
-        index=[
-            "Gemini",
-            "Groq",
-            "Ollama",
-        ].index(
+        ["Gemini", "Groq", "Ollama"],
+        index=["Gemini", "Groq", "Ollama"].index(
             st.session_state.batch_llm_provider_data
         ),
         key="batch_llm_provider",
         help="Choose the LLM provider for batch evaluation.",
+        label_visibility="collapsed",
     )
 
-    st.session_state.batch_llm_provider_data = (
-        batch_llm_provider
-    )
+    st.session_state.batch_llm_provider_data = batch_llm_provider
 
     if batch_llm_provider == "Gemini":
-
-        st.caption(
-            "☁️ Using Gemini API"
-        )
+        st.caption("☁️ Using Gemini API")
     elif batch_llm_provider == "Groq":
-
-        st.caption(
-            "⚡ Using Groq API"
-        )
+        st.caption("⚡ Using Groq API")
     else:
-
-        st.caption(
-            "🖥️ Using local Ollama model: "
-            "qwen3:4b-instruct-2507-q4_K_M"
-        )
+        st.caption("🖥️ Using local Ollama model: qwen3:4b-instruct-2507-q4_K_M")
 
     # ========================================================
-    # LOAD CSV
+    # BATCH WORKFLOW
+    # ========================================================
+
+    st.markdown(
+        '<div class="batch-section-title">🧠 Batch Workflow</div>',
+        unsafe_allow_html=True,
+    )
+
+    workflow = [
+        ("📄", "Upload CSV"),
+        ("🔍", "Validate Records"),
+        ("🤖", "Evaluate"),
+        ("📊", "Generate Results"),
+    ]
+
+    workflow_html = '<div class="batch-workflow">'
+    for i, (icon, label) in enumerate(workflow):
+        workflow_html += f'''
+            <div class="batch-workflow-item">
+                <div class="batch-workflow-card">
+                    <span class="batch-workflow-icon">{icon}</span>
+                    <span class="batch-workflow-label">{html.escape(label)}</span>
+                </div>
+            </div>
+        '''
+        if i < len(workflow) - 1:
+            workflow_html += '<span class="batch-workflow-arrow">→</span>'
+    workflow_html += '</div>'
+    st.markdown(workflow_html, unsafe_allow_html=True)
+
+    # ========================================================
+    # LOAD / VALIDATE CSV
     # ========================================================
 
     if batch_df is not None:
-
         try:
-
-            required_columns = [
-                "question",
-                "ai_response",
-            ]
-
-            missing_columns = [
-                col
-                for col in required_columns
-                if col not in batch_df.columns
-            ]
+            required_columns = ["question", "ai_response"]
+            missing_columns = [col for col in required_columns if col not in batch_df.columns]
 
             if missing_columns:
-
-                st.error(
-                    "Missing required columns: "
-                    + ", ".join(
-                        missing_columns
-                    )
-                )
-
+                st.error("Missing required columns: " + ", ".join(missing_columns))
                 batch_df = None
-
             else:
+                st.success(f"CSV loaded successfully — {len(batch_df)} records found.")
 
-                st.success(
-                    f"CSV loaded successfully — "
-                    f"{len(batch_df)} records found."
+                ready_label = "record" if len(batch_df) == 1 else "records"
+                st.markdown(
+                    f'<div class="batch-ready-status">'
+                    f'<span class="ready-dot"></span>'
+                    f'<span>{len(batch_df)} {ready_label} ready for evaluation</span>'
+                    f'</div>',
+                    unsafe_allow_html=True,
                 )
 
-                with st.expander(
-                    "👀 Preview CSV"
-                ):
-
+                with st.expander("👀 Preview Dataset"):
                     st.dataframe(
                         batch_df.head(10),
                         use_container_width=True,
+                        hide_index=True,
+                    )
+
+                    st.caption(
+                        f"Showing up to 10 of {len(batch_df)} records. "
+                        "Required: question, ai_response."
                     )
 
         except Exception as e:
-
-            st.error(
-                f"Unable to read CSV file: {e}"
-            )
-
+            st.error(f"Unable to read CSV file: {e}")
             batch_df = None
 
     # ========================================================
@@ -6375,6 +6343,12 @@ elif page == "History":
         history_type
     )
 
+    search_query = st.text_input(
+        "🔎 Search History",
+        placeholder="Search by question, AI response, reference answer, verdict, risk, timestamp, or ID...",
+        key="history_search_query",
+    ).strip().lower()
+
     # ========================================================
     # SINGLE HISTORY
     # ========================================================
@@ -6382,6 +6356,8 @@ elif page == "History":
     if history_type == "Single Evaluations":
 
         history = get_single_history()
+        if search_query:
+            history = [item for item in history if search_query in " ".join([str(item.get("submission_id","")),str(item.get("timestamp","")),str(item.get("question","")),str(item.get("ai_response","")),str(item.get("reference_answer","")),str(item.get("source_document","")),str(item.get("risk_level","")),str(item.get("verdict_result",""))]).lower()]
 
         if not history:
 
@@ -6392,9 +6368,57 @@ elif page == "History":
 
         else:
 
-            st.write(
-                f"**{len(history)} completed evaluation(s)**"
-            )
+            # History summary
+            total_history = len(history)
+            pass_count = 0
+            needs_count = 0
+            fail_count = 0
+            high_count = 0
+            medium_count = 0
+            low_count = 0
+
+            for _item in history:
+                _verdict = json_value(_item.get("verdict_result"))
+                _name = str(_verdict.get("verdict", _verdict.get("status", ""))).strip().lower()
+                if "pass" in _name:
+                    pass_count += 1
+                elif "need" in _name:
+                    needs_count += 1
+                elif "fail" in _name:
+                    fail_count += 1
+
+                _risk = str(_item.get("risk_level", "")).strip().lower().replace(" risk", "")
+                if _risk == "high":
+                    high_count += 1
+                elif _risk == "medium":
+                    medium_count += 1
+                elif _risk == "low":
+                    low_count += 1
+
+            k1, k2, k3, k4 = st.columns(4)
+
+            with k1:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">{total_history}</div><div class="history-kpi-label">Completed Evaluations</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k2:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">🟢 {pass_count}</div><div class="history-kpi-label">Pass</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k3:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">🟠 {needs_count}</div><div class="history-kpi-label">Needs Improvement</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k4:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">🔴 {fail_count}</div><div class="history-kpi-label">Fail</div></div>',
+                    unsafe_allow_html=True,
+                )
+
+            st.markdown('<div class="history-section-label">Evaluation Records</div>', unsafe_allow_html=True)
 
             for item in history:
 
@@ -6450,12 +6474,29 @@ elif page == "History":
                     or "Unknown"
                 )
 
+                verdict_lower = str(verdict_name).strip().lower()
+                if "pass" in verdict_lower:
+                    verdict_icon = "🟢"
+                elif "need" in verdict_lower:
+                    verdict_icon = "🟠"
+                elif "fail" in verdict_lower:
+                    verdict_icon = "🔴"
+                else:
+                    verdict_icon = "⚪"
+
+                risk_clean = str(risk).replace(" Risk", "").strip()
+                risk_lower = risk_clean.lower()
+                risk_icon = {
+                    "high": "🔴",
+                    "medium": "🟠",
+                    "low": "🟢",
+                }.get(risk_lower, "⚪")
+
                 with st.expander(
-                    f"🔍 "
-                    f"{item['question'][:90]}  |  "
-                    f"{verdict_name}  |  "
-                    f"{score:.1f}/5  |  "
-                    f"{risk} Risk"
+                    f"🔍 {item['question'][:90]}  •  "
+                    f"{verdict_icon} {verdict_name}  •  "
+                    f"{score:.1f}/5  •  "
+                    f"{risk_icon} {risk_clean or 'Unknown'} Risk"
                 ):
 
                     st.write(
@@ -6554,6 +6595,45 @@ elif page == "History":
     else:
 
         batches = get_batch_history()
+        if search_query:
+            matching_batches = []
+            for batch in batches:
+                batch_text = " ".join([
+                    str(batch.get("batch_id", "")),
+                    str(batch.get("timestamp", "")),
+                    str(batch.get("status", "")),
+                    str(batch.get("total_records", "")),
+                    str(batch.get("pass_count", "")),
+                    str(batch.get("needs_improvement_count", "")),
+                    str(batch.get("fail_count", "")),
+                    str(batch.get("hallucination_count", "")),
+                    str(batch.get("avg_relevance", "")),
+                    str(batch.get("avg_accuracy", "")),
+                    str(batch.get("avg_completeness", "")),
+                    str(batch.get("avg_hallucination", "")),
+                ]).lower()
+
+                record_text = ""
+                try:
+                    records_for_search = get_batch_records(batch["batch_id"])
+                    record_text = " ".join(
+                        " ".join([
+                            str(record.get("submission_id", "")),
+                            str(record.get("question", "")),
+                            str(record.get("ai_response", "")),
+                            str(record.get("reference_answer", "")),
+                            str(record.get("source_document", "")),
+                            str(record.get("status", "")),
+                        ])
+                        for record in records_for_search
+                    ).lower()
+                except Exception:
+                    record_text = ""
+
+                if search_query in batch_text or search_query in record_text:
+                    matching_batches.append(batch)
+
+            batches = matching_batches
 
         if not batches:
 
@@ -6564,9 +6644,34 @@ elif page == "History":
 
         else:
 
-            st.write(
-                f"**{len(batches)} batch(es) in History**"
-            )
+            total_batches = len(batches)
+            total_records = sum(int(batch.get("total_records", 0) or 0) for batch in batches)
+            total_pass = sum(int(batch.get("pass_count", 0) or 0) for batch in batches)
+            total_fail = sum(int(batch.get("fail_count", 0) or 0) for batch in batches)
+
+            k1, k2, k3, k4 = st.columns(4)
+            with k1:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">{total_batches}</div><div class="history-kpi-label">Batches</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k2:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">{total_records}</div><div class="history-kpi-label">Total Records</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k3:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">🟢 {total_pass}</div><div class="history-kpi-label">Pass</div></div>',
+                    unsafe_allow_html=True,
+                )
+            with k4:
+                st.markdown(
+                    f'<div class="history-kpi"><div class="history-kpi-value">🔴 {total_fail}</div><div class="history-kpi-label">Fail</div></div>',
+                    unsafe_allow_html=True,
+                )
+
+            st.markdown('<div class="history-section-label">Batch Records</div>', unsafe_allow_html=True)
 
             for batch in batches:
 
